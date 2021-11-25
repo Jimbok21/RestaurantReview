@@ -1,27 +1,90 @@
 package com.example.courseworkpcversion
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 //This whole class is no longer implemented.
 //I merged the functionality of creating a new user into the home page.
 //I am keeping this file in case I change my mind.
 class UserRegistration : AppCompatActivity() {
 
-    lateinit var handler: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.user_registration)
 
-
-        handler = DatabaseHelper(this)
     }
-    fun saveData2 (view: View) {
 
+    fun createAccount(view: View) {
+        val username = findViewById<TextView>(R.id.inputUsername)
+        val email = findViewById<TextView>(R.id.inputEmail)
+        val password = findViewById<TextView>(R.id.inputPassword)
+        val usernameTxt: String = username.text.toString().trim { it <= ' ' }
+        val emailTxt: String = email.text.toString().trim { it <= ' ' }
+        val passwordTxt: String = password.text.toString().trim { it <= ' ' }
+
+        val snackEmptyUsername =
+            Snackbar.make(view, "Please enter a username", Snackbar.LENGTH_LONG)
+        val snackEmptyPassword =
+            Snackbar.make(view, "Please enter a password", Snackbar.LENGTH_LONG)
+        val snackEmptyEmail =
+            Snackbar.make(view, "Please enter an email", Snackbar.LENGTH_LONG)
+        val snackSuccessCreated =
+            Snackbar.make(view, "Account Registered Successfully", Snackbar.LENGTH_LONG)
+
+        when {
+            TextUtils.isEmpty(usernameTxt) -> {
+                snackEmptyUsername.show()
+            }
+
+            TextUtils.isEmpty(passwordTxt) -> {
+                snackEmptyPassword.show()
+            }
+
+            TextUtils.isEmpty(emailTxt) -> {
+                snackEmptyEmail.show()
+            }
+            else -> {
+
+                FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailTxt, passwordTxt)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+
+                            val firebaseUser: FirebaseUser = task.result!!.user!!
+                            snackSuccessCreated.show()
+
+                            val intent =
+                                Intent(this@UserRegistration, HomePage::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            intent.putExtra("user_id", firebaseUser.uid)
+                            intent.putExtra("email_id", emailTxt)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Snackbar.make(view, task.exception!!.message.toString(), Snackbar.LENGTH_LONG).show()
+                        }
+                    }
+            }
+
+
+        }
+
+        fun saveData2(view: View) {
+
+        }
+
+        fun openLogin(view: View) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
