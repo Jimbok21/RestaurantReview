@@ -14,6 +14,8 @@
     <string name="login">LOG IN</string>
     <string name="signInLabel">Sign in with:</string>
     <string name="createAccountTxt">Create an Account</string>
+    <string name="signInUnderline"><u>Sign in</u></string>
+    <string name="accountAlready">Already have an account?</string>
 
 
     <string name="hello_first_fragment">Hello first fragment</string>

@@ -21,4 +21,7 @@ class UserRegistration : AppCompatActivity() {
 
         handler = DatabaseHelper(this)
     }
+    fun saveData2 (view: View) {
+
+    }
 }

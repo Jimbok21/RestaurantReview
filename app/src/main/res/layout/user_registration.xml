@@ -73,6 +73,35 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:text="@string/createAccount"
-        android:onClick="saveData"/>
+        android:onClick="saveData2"/>
+<RelativeLayout
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+    <TextView
+        android:id="@+id/alreadyHaveAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:text="@string/accountAlready"
+        android:textColor="@color/teal_700"
+        android:textSize="20dp"
 
+
+        />
+    <TextView
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:text="@string/signInUnderline"
+        android:textColor="@color/teal_200"
+        android:textSize="20dp"
+        android:layout_toRightOf="@+id/alreadyHaveAccount"
+        android:textStyle="bold"
+        />
+</RelativeLayout>
 </LinearLayout>
