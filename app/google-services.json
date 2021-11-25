@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "731282512431",
+    "project_id": "restaurantreviewer-12cf2",
+    "storage_bucket": "restaurantreviewer-12cf2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:731282512431:android:272ebeabbacd55e12344da",
+        "android_client_info": {
+          "package_name": "com.example.courseworkpcversion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "731282512431-3hn3hqfkc0d95fjb3vbkbbrnldpifv67.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.courseworkpcversion",
+            "certificate_hash": "f873a0dec359e03d0b1412bb771e0d29e3a6ac67"
+          }
+        },
+        {
+          "client_id": "731282512431-et2l2gjk3lkaukmcoesht3q5o6qvr60b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlrsCBDU_R78j_kItEPEO6Vs-wmmXCvpE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "731282512431-et2l2gjk3lkaukmcoesht3q5o6qvr60b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
