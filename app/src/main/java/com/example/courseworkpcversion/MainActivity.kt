@@ -4,59 +4,79 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var handler: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        handler = DatabaseHelper(this)
     }
 
-    //Originally I had a sepearate create account screen but it saved data to a separate database so
-    //I scrapped it.
     fun openCreateAccount(view: View) {
+        //opens the create account page
         val intent = Intent(this, UserRegistration::class.java)
         startActivity(intent)
     }
 
 
-    fun saveData (view: View) {
-        val inputUsername = findViewById<TextView>(R.id.username)
-        val inputPassword = findViewById<TextView>(R.id.password)
-        val username = inputUsername.text.toString()
-        val password = inputPassword.text.toString()
-
-        val snackSave = Snackbar.make(view,"Profile $username has been added to the database", Snackbar.LENGTH_LONG)
-        snackSave.show()
-        Log.d("Trying", "Inserting Data")
-        handler.insertData(username, password)
-        snackSave.show()
-    }
+    fun login(view: View) {
+        val email = findViewById<TextView>(R.id.email)
+        val password = findViewById<TextView>(R.id.password)
+        val emailTxt: String = email.text.toString().trim { it <= ' ' }
+        val passwordTxt: String = password.text.toString().trim { it <= ' ' }
 
 
-    fun login(view: android.view.View) {
-        //checks if inputted data is in the database
-        val userNameTxtBox = findViewById<TextView>(R.id.username)
-        val passwordTxtBox = findViewById<TextView>(R.id.password)
-        val userName = userNameTxtBox.text.toString()
-        val password = passwordTxtBox.text.toString()
-        val snackLogin = Snackbar.make(view,"Logging in", Snackbar.LENGTH_LONG)
-        val snackIncorrect = Snackbar.make(view,"Incorrect log in details $userName and $password", Snackbar.LENGTH_SHORT)
-        if(handler.validUserCheck(userName, password)) {
-            snackLogin.show()
-        } else {
-            snackIncorrect.show()
+        val snackEmptyPassword =
+            Snackbar.make(view, "Please enter a password", Snackbar.LENGTH_LONG)
+        val snackEmptyEmail =
+            Snackbar.make(view, "Please enter an email", Snackbar.LENGTH_LONG)
+        val snackSuccessLogin =
+            Snackbar.make(view, "Logging in", Snackbar.LENGTH_LONG)
+
+        when {
+            //checks if the user has left any details blank and alerts them
+            TextUtils.isEmpty(passwordTxt) -> {
+                snackEmptyPassword.show()
+            }
+
+            TextUtils.isEmpty(emailTxt) -> {
+                snackEmptyEmail.show()
+            }
+            else -> {
+                //This will check to see if the log in details are correct and sign the user in
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(emailTxt, passwordTxt)
+                    .addOnCompleteListener() { task ->
+                        if (task.isSuccessful) {
+
+                            snackSuccessLogin.show()
+
+                            val intent =
+                                Intent(this@MainActivity, HomePage::class.java)
+                            intent.flags =
+                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            intent.putExtra("user_id", FirebaseAuth.getInstance().currentUser!!.uid)
+                            intent.putExtra("email_id", emailTxt)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Snackbar.make(
+                                view,
+                                task.exception!!.message.toString(),
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+            }
         }
     }
-
-
 }

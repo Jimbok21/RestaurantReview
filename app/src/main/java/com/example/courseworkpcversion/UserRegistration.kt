@@ -24,16 +24,17 @@ class UserRegistration : AppCompatActivity() {
 
     }
 
+    fun openLogin(view: View) {
+        //takes the user back to the main login page
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+
     fun createAccount(view: View) {
-        val username = findViewById<TextView>(R.id.inputUsername)
         val email = findViewById<TextView>(R.id.inputEmail)
         val password = findViewById<TextView>(R.id.inputPassword)
-        val usernameTxt: String = username.text.toString().trim { it <= ' ' }
         val emailTxt: String = email.text.toString().trim { it <= ' ' }
         val passwordTxt: String = password.text.toString().trim { it <= ' ' }
-
-        val snackEmptyUsername =
-            Snackbar.make(view, "Please enter a username", Snackbar.LENGTH_LONG)
         val snackEmptyPassword =
             Snackbar.make(view, "Please enter a password", Snackbar.LENGTH_LONG)
         val snackEmptyEmail =
@@ -42,10 +43,7 @@ class UserRegistration : AppCompatActivity() {
             Snackbar.make(view, "Account Registered Successfully", Snackbar.LENGTH_LONG)
 
         when {
-            TextUtils.isEmpty(usernameTxt) -> {
-                snackEmptyUsername.show()
-            }
-
+            //checks if the user has left any details blank and alerts them
             TextUtils.isEmpty(passwordTxt) -> {
                 snackEmptyPassword.show()
             }
@@ -54,9 +52,9 @@ class UserRegistration : AppCompatActivity() {
                 snackEmptyEmail.show()
             }
             else -> {
-
+                //This will create the user and sign them in
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailTxt, passwordTxt)
-                    .addOnCompleteListener { task ->
+                    .addOnCompleteListener() { task ->
                         if (task.isSuccessful) {
 
                             val firebaseUser: FirebaseUser = task.result!!.user!!
@@ -64,27 +62,21 @@ class UserRegistration : AppCompatActivity() {
 
                             val intent =
                                 Intent(this@UserRegistration, HomePage::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            intent.flags =
+                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             intent.putExtra("user_id", firebaseUser.uid)
                             intent.putExtra("email_id", emailTxt)
                             startActivity(intent)
                             finish()
                         } else {
-                            Snackbar.make(view, task.exception!!.message.toString(), Snackbar.LENGTH_LONG).show()
+                            Snackbar.make(
+                                view,
+                                task.exception!!.message.toString(),
+                                Snackbar.LENGTH_LONG
+                            ).show()
                         }
                     }
             }
-
-
-        }
-
-        fun saveData2(view: View) {
-
-        }
-
-        fun openLogin(view: View) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
         }
     }
 }

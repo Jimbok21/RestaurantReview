@@ -22,7 +22,7 @@
         android:textSize="35dp"
         android:textStyle="bold"
         />
-    <EditText
+<!--    <EditText
         android:id="@+id/inputUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
         android:backgroundTint="@color/design_default_color_secondary"
         android:drawableLeft="@drawable/password_icon"
         android:drawablePadding="20dp"
-        android:maxLength="20"/>
+        android:maxLength="20"/>-->
     <EditText
         android:id="@+id/inputEmail"
         android:layout_width="match_parent"

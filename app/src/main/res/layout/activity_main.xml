@@ -36,7 +36,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/signin"
@@ -48,7 +48,7 @@
         android:backgroundTint="@color/design_default_color_secondary"
         android:drawableLeft="@drawable/username_icon"
         android:drawablePadding="20dp"
-        android:hint="@string/username"
+        android:hint="@string/email"
         android:padding="20dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
@@ -57,7 +57,7 @@
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/username"
+        android:layout_below="@id/email"
         android:hint="@string/password"
         android:background="#50ffffff"
         android:textColorHint="@color/white"
