@@ -12,9 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
-//This whole class is no longer implemented.
-//I merged the functionality of creating a new user into the home page.
-//I am keeping this file in case I change my mind.
+//This class allows the user to create an account and logs them in
 class UserRegistration : AppCompatActivity() {
 
 

@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 
+//this class is the main page of the app that will show the reviews and allow the user to navigate
+//to other parts of the app
 class HomePage : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
