@@ -18,6 +18,8 @@
     <string name="accountAlready">Already have an account?</string>
     <string name="logout">Logout</string>
     <string name="appTitle">Restaurant Reviewer</string>
+    <string name="restaurant">Restaurant </string>
+    <string name="reviewer"> Reviewer</string>
 
 
     <string name="hello_first_fragment">Hello first fragment</string>

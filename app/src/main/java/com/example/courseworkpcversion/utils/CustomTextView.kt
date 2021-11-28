@@ -10,9 +10,8 @@ class CustomTextView(context: Context, attrs:AttributeSet) : AppCompatTextView(c
         applyFont()
     }
 
-    private fun applyFont() {
-        val typeface: Typeface =
-            Typeface.createFromAsset(context.assets, "Foodpacker.otf")
+    fun applyFont() {
+        val typeface: Typeface = Typeface.createFromAsset(context.assets, "Foodpacker.otf")
         setTypeface(typeface)
     }
 }
