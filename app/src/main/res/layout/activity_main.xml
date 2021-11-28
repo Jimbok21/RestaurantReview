@@ -20,20 +20,35 @@
         android:backgroundTint="@color/design_default_color_secondary"
         android:text="@string/loginGuest" />
 
-    <TextView
+    <com.example.courseworkpcversion.utils.CustomTextView
+        android:id="@+id/appTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:text="@string/appTitle"
+        android:textColor="@color/teal_700"
+        android:textSize="35dp"
+        android:textStyle="bold" >
+    </com.example.courseworkpcversion.utils.CustomTextView>
+    <com.example.courseworkpcversion.utils.CustomTextView
         android:id="@+id/signin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
         android:gravity="center"
         android:text="@string/signInLabel"
         android:textColor="@color/teal_700"
         android:textSize="35dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_below="@id/appTitle"/>
 
     <EditText
         android:id="@+id/email"

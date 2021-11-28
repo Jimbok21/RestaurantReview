@@ -2,6 +2,7 @@ package com.example.courseworkpcversion
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -16,7 +17,6 @@ import com.google.firebase.auth.FirebaseUser
 
 //this class allows the user to log in
 class MainActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

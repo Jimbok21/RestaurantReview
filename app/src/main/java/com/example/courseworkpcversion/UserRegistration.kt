@@ -31,12 +31,16 @@ class UserRegistration : AppCompatActivity() {
     fun createAccount(view: View) {
         val email = findViewById<TextView>(R.id.inputEmail)
         val password = findViewById<TextView>(R.id.inputPassword)
+        val username = findViewById<TextView>(R.id.inputEmail)
         val emailTxt: String = email.text.toString().trim { it <= ' ' }
         val passwordTxt: String = password.text.toString().trim { it <= ' ' }
+        val usernameTxt: String = username.text.toString().trim { it <= ' ' }
         val snackEmptyPassword =
             Snackbar.make(view, "Please enter a password", Snackbar.LENGTH_LONG)
         val snackEmptyEmail =
             Snackbar.make(view, "Please enter an email", Snackbar.LENGTH_LONG)
+        val snackEmptyUsername =
+            Snackbar.make(view, "Please enter a username", Snackbar.LENGTH_LONG)
         val snackSuccessCreated =
             Snackbar.make(view, "Account Registered Successfully", Snackbar.LENGTH_LONG)
 
@@ -49,11 +53,16 @@ class UserRegistration : AppCompatActivity() {
             TextUtils.isEmpty(emailTxt) -> {
                 snackEmptyEmail.show()
             }
+
+            TextUtils.isEmpty(emailTxt) -> {
+                snackEmptyUsername.show()
+            }
             else -> {
                 //This will create the user and sign them in
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailTxt, passwordTxt)
                     .addOnCompleteListener() { task ->
                         if (task.isSuccessful) {
+                            val user = UserData(usernameTxt, emailTxt)
 
                             val firebaseUser: FirebaseUser = task.result!!.user!!
                             snackSuccessCreated.show()
