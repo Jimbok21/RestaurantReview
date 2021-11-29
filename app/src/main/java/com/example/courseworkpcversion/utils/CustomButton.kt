@@ -3,15 +3,17 @@ package com.example.courseworkpcversion.utils
 import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
-import androidx.appcompat.widget.AppCompatTextView
+import androidx.appcompat.widget.AppCompatButton
 
-class CustomTextView(context: Context, attrs:AttributeSet) : AppCompatTextView(context, attrs) {
+class CustomButton(context: Context, attrs: AttributeSet):AppCompatButton(context, attrs) {
+
     init {
         applyFont()
     }
 
     private fun applyFont() {
-        val typeface: Typeface = Typeface.createFromAsset(context.assets, "Bakeapple.ttf")
+        val typeface: Typeface =
+            Typeface.createFromAsset(context.assets, "Bakeapple.ttf")
         setTypeface(typeface)
     }
 }

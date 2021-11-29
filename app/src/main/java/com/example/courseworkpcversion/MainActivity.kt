@@ -26,6 +26,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val titleRestaurant: TextView = findViewById(R.id.appTitleRestaurant)
+        val titleReviewer: TextView = findViewById(R.id.appTitleReviewer)
+
+        val font = Typeface.createFromAsset(assets, "Foodpacker.otf")
+
+        titleRestaurant.typeface = font
+        titleReviewer.typeface = font
+
     }
 
     fun openCreateAccount(view: View) {

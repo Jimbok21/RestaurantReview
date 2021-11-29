@@ -7,7 +7,7 @@
     android:background="@drawable/login"
     tools:context=".MainActivity">
 
-    <com.google.android.material.button.MaterialButton
+    <com.example.courseworkpcversion.utils.CustomButton
         android:id="@+id/login_guestbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,9 +18,10 @@
         android:layout_marginEnd="500dp"
         android:layout_marginBottom="2000dp"
         android:backgroundTint="@color/design_default_color_secondary"
-        android:text="@string/loginGuest" />
+        android:text="@string/loginGuest"
+        android:textSize="25dp"/>
 
-    <com.example.courseworkpcversion.utils.CustomTextView
+   <TextView
         android:id="@+id/appTitleRestaurant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,9 +34,9 @@
         android:text="@string/restaurant"
         android:textColor="@color/teal_200"
         android:textSize="45dp"
-        android:textStyle="bold"></com.example.courseworkpcversion.utils.CustomTextView>
+        android:textStyle="bold"/>
 
-    <com.example.courseworkpcversion.utils.CustomTextView
+    <TextView
         android:id="@+id/appTitleReviewer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +47,9 @@
         android:text="@string/reviewer"
         android:textColor="@color/teal_200"
         android:textSize="40dp"
-        android:textStyle="bold"></com.example.courseworkpcversion.utils.CustomTextView>
+        android:textStyle="bold">
+    </TextView>
+
     <com.example.courseworkpcversion.utils.CustomTextView
         android:id="@+id/signin"
         android:layout_width="match_parent"
@@ -121,7 +124,7 @@
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <com.example.courseworkpcversion.utils.CustomButton
         android:id="@+id/loginbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -133,9 +136,10 @@
         android:layout_marginBottom="100dp"
         android:backgroundTint="@color/design_default_color_secondary"
         android:onClick="login"
+        android:textSize="25dp"
         android:text="@string/login" />
 
-    <com.google.android.material.button.MaterialButton
+    <com.example.courseworkpcversion.utils.CustomButton
         android:id="@+id/create_account_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -146,8 +150,9 @@
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="2000dp"
         android:backgroundTint="@color/design_default_color_secondary"
+        android:onClick="openCreateAccount"
         android:text="@string/createAccount"
-        android:onClick="openCreateAccount"/>
+        android:textSize="25dp"/>
 
     <ImageView
         android:id="@+id/google"
