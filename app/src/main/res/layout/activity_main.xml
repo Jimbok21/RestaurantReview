@@ -63,24 +63,6 @@
         android:textStyle="bold"
         android:layout_below="@id/appTitleReviewer"/>
 
-<!--    <EditText
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/signin"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="#50ffffff"
-        android:backgroundTint="@color/design_default_color_secondary"
-
-        android:drawablePadding="20dp"
-        android:hint="@string/email"
-        android:padding="20dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white" />-->
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email"
         android:layout_width="match_parent"
@@ -101,7 +83,7 @@
             android:textColor="@color/white"
             android:background="#50ffffff"
             android:ems="15"
-            android:drawableLeft="@drawable/username_icon"
+            android:drawableStart="@drawable/username_icon"
             android:drawablePadding="10dp"
             android:backgroundTint="@color/design_default_color_secondary"
             >
@@ -120,7 +102,8 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         app:passwordToggleEnabled="true"
-        android:drawablePadding="20dp">
+        android:drawablePadding="20dp"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

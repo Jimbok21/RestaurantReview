@@ -29,9 +29,9 @@ class UserRegistration : AppCompatActivity() {
     }
 
     fun createAccount(view: View) {
-        val email = findViewById<TextView>(R.id.inputEmail)
-        val password = findViewById<TextView>(R.id.inputPassword)
-        val username = findViewById<TextView>(R.id.inputEmail)
+        val email = findViewById<TextView>(R.id.inputEmailText)
+        val password = findViewById<TextView>(R.id.inputPasswordText)
+        val username = findViewById<TextView>(R.id.inputUsernameText)
         val emailTxt: String = email.text.toString().trim { it <= ' ' }
         val passwordTxt: String = password.text.toString().trim { it <= ' ' }
         val usernameTxt: String = username.text.toString().trim { it <= ' ' }
