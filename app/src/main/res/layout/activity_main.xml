@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:theme="@style/AppTheme">
 
     <com.example.courseworkpcversion.utils.CustomButton
         android:id="@+id/login_guestbtn"
@@ -17,9 +18,10 @@
         android:layout_marginTop="200dp"
         android:layout_marginEnd="500dp"
         android:layout_marginBottom="2000dp"
-        android:backgroundTint="@color/design_default_color_secondary"
+        android:background="@drawable/button_background"
         android:text="@string/loginGuest"
-        android:textSize="25dp"/>
+        android:textSize="25dp"
+        android:padding="10dp"/>
 
    <TextView
         android:id="@+id/appTitleRestaurant"
@@ -80,7 +82,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:hint="@string/email"
             android:textColorHint="@color/white"
             android:textColor="@color/white"
@@ -134,10 +136,11 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="100dp"
-        android:backgroundTint="@color/design_default_color_secondary"
+        android:background="@drawable/button_background"
         android:onClick="login"
+        android:text="@string/login"
         android:textSize="25dp"
-        android:text="@string/login" />
+        android:padding="10dp"/>
 
     <com.example.courseworkpcversion.utils.CustomButton
         android:id="@+id/create_account_btn"
@@ -149,10 +152,11 @@
         android:layout_marginTop="125dp"
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="2000dp"
-        android:backgroundTint="@color/design_default_color_secondary"
+        android:padding="10dp"
+        android:background="@drawable/button_background"
         android:onClick="openCreateAccount"
         android:text="@string/createAccount"
-        android:textSize="25dp"/>
+        android:textSize="25dp" />
 
     <ImageView
         android:id="@+id/google"

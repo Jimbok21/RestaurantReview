@@ -8,10 +8,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CourseworkPcVersion">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:label="@string/app_name"
             android:theme="@style/Theme.CourseworkPcVersion.NoActionBar">
             <intent-filter>
@@ -20,11 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserRegistration">
+        <activity android:name=".UserRegistration"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.CourseworkPcVersion.NoActionBar">
 
         </activity>
         <activity
             android:name=".HomePage"
+            android:screenOrientation="portrait"
             android:label="@string/app_name">
         </activity>
     </application>
