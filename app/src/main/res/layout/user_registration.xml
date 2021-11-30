@@ -117,7 +117,7 @@
         android:layout_marginStart="10dp"
         android:text="@string/createAccount"
         android:onClick="createAccount"
-        android:backgroundTint="@color/design_default_color_secondary"
+        android:background="@drawable/button_background"
         android:textSize="25dp"/>
 
 <RelativeLayout
@@ -135,18 +135,18 @@
         android:textColor="@color/teal_700"
         android:textSize="25dp"
         />
+
     <com.example.courseworkpcversion.utils.CustomTextView
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/alreadyHaveAccount"
+        android:onClick="openLogin"
         android:padding="5dp"
         android:text="@string/signInUnderline"
         android:textColor="@color/teal_200"
         android:textSize="25dp"
-        android:layout_toRightOf="@+id/alreadyHaveAccount"
-        android:textStyle="bold"
-        android:onClick="openLogin"
-        />
+        android:textStyle="bold" />
 </RelativeLayout>
 </LinearLayout>

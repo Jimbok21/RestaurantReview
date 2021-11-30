@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="button_right_colour">#8c09b9</color>
     <color name="button_left_colour">#059dce</color>
-    <color name="test">#FFFFFFFF</color>
+    <color name="ColourSnackbarSuccess">#8BC34A</color>
+    <color name="ColourSnackbarError">#BB4444</color>
 
 </resources>

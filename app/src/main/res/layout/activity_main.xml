@@ -138,9 +138,9 @@
         android:layout_marginBottom="100dp"
         android:background="@drawable/button_background"
         android:onClick="login"
+        android:padding="10dp"
         android:text="@string/login"
-        android:textSize="25dp"
-        android:padding="10dp"/>
+        android:textSize="25dp" />
 
     <com.example.courseworkpcversion.utils.CustomButton
         android:id="@+id/create_account_btn"

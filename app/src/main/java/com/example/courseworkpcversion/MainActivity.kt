@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -53,10 +54,13 @@ class MainActivity : AppCompatActivity() {
         //this creates the error message snackbars
         val snackEmptyPassword =
             Snackbar.make(view, "Please enter a password", Snackbar.LENGTH_LONG)
+        snackEmptyPassword.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarError))
         val snackEmptyEmail =
             Snackbar.make(view, "Please enter an email", Snackbar.LENGTH_LONG)
+        snackEmptyEmail.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarError))
         val snackSuccessLogin =
             Snackbar.make(view, "Logging in", Snackbar.LENGTH_LONG)
+        snackSuccessLogin.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarSuccess))
 
         when {
             //checks if the user has left any details blank and alerts them
@@ -86,11 +90,11 @@ class MainActivity : AppCompatActivity() {
                             startActivity(intent)
                             finish()
                         } else {
-                            Snackbar.make(
+                            val snackbarError = Snackbar.make(
                                 view,
                                 task.exception!!.message.toString(),
                                 Snackbar.LENGTH_LONG
-                            ).show()
+                            )
                         }
                     }
             }

@@ -1,6 +1,7 @@
 package com.example.courseworkpcversion
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -10,6 +11,7 @@ import android.view.Window
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
+import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -39,12 +41,16 @@ class UserRegistration : AppCompatActivity() {
         val usernameTxt: String = username.text.toString().trim { it <= ' ' }
         val snackEmptyPassword =
             Snackbar.make(view, "Please enter a password", Snackbar.LENGTH_LONG)
+        snackEmptyPassword.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarError))
         val snackEmptyEmail =
             Snackbar.make(view, "Please enter an email", Snackbar.LENGTH_LONG)
+        snackEmptyEmail.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarError))
         val snackEmptyUsername =
             Snackbar.make(view, "Please enter a username", Snackbar.LENGTH_LONG)
+        snackEmptyUsername.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarError))
         val snackSuccessCreated =
             Snackbar.make(view, "Account Registered Successfully", Snackbar.LENGTH_LONG)
+        snackSuccessCreated.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarSuccess))
 
         when {
             //checks if the user has left any details blank and alerts them
@@ -56,7 +62,7 @@ class UserRegistration : AppCompatActivity() {
                 snackEmptyEmail.show()
             }
 
-            TextUtils.isEmpty(emailTxt) -> {
+            TextUtils.isEmpty(usernameTxt) -> {
                 snackEmptyUsername.show()
             }
             else -> {
@@ -78,11 +84,13 @@ class UserRegistration : AppCompatActivity() {
                             startActivity(intent)
                             finish()
                         } else {
-                            Snackbar.make(
+                            val snackError = Snackbar.make(
                                 view,
                                 task.exception!!.message.toString(),
                                 Snackbar.LENGTH_LONG
-                            ).show()
+                            )
+                                snackError.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarError))
+                            snackError.show()
                         }
                     }
             }
