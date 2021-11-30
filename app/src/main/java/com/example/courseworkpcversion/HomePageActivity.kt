@@ -8,7 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 //this class is the main page of the app that will show the reviews and allow the user to navigate
 //to other parts of the app
-class HomePage : AppCompatActivity() {
+class HomePageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,7 @@ class HomePage : AppCompatActivity() {
         //logs the user out and takes them back to the sign in page
         FirebaseAuth.getInstance().signOut()
 
-        startActivity(Intent(this@HomePage, MainActivity::class.java))
+        startActivity(Intent(this@HomePageActivity, LoginActivity::class.java))
         finish()
     }
 }
