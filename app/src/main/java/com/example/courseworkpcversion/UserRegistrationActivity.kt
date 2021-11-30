@@ -7,6 +7,8 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.example.courseworkpcversion.firestore.FirestoreClass
+import com.example.courseworkpcversion.models.User
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -67,9 +69,11 @@ class UserRegistrationActivity : AppCompatActivity() {
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailTxt, passwordTxt)
                     .addOnCompleteListener() { task ->
                         if (task.isSuccessful) {
-                            val user = UserDataActivity(usernameTxt, emailTxt)
 
                             val firebaseUser: FirebaseUser = task.result!!.user!!
+
+                            val user = User(
+                                firebaseUser.uid, usernameTxt, emailTxt)
 
                             val intent =
                                 Intent(this@UserRegistrationActivity, HomePageActivity::class.java)
@@ -77,6 +81,7 @@ class UserRegistrationActivity : AppCompatActivity() {
                                 Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             intent.putExtra("user_id", firebaseUser.uid)
                             intent.putExtra("email_id", emailTxt)
+                            FirestoreClass().registerUser(this, user)
                             startActivity(intent)
                             snackSuccessCreated.show()
                             finish()
@@ -87,11 +92,15 @@ class UserRegistrationActivity : AppCompatActivity() {
                                 task.exception!!.message.toString(),
                                 Snackbar.LENGTH_LONG
                             )
-                                snackError.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarError))
+                                snackError.view.setBackgroundColor(ContextCompat.getColor(this@UserRegistrationActivity, R.color.ColourSnackbarError))
                             snackError.show()
                         }
                     }
             }
         }
+    }
+
+    fun userRegisterSuccess() {
+
     }
 }
