@@ -5,11 +5,13 @@ import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.courseworkpcversion.firestore.FirestoreClass
+import com.example.courseworkpcversion.models.User
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
@@ -37,6 +39,12 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun userLoggedInSuccess(user: User) {
+        Log.i("Username: ", user.username)
+        Log.i("Email: ", user.email)
+        startActivity(Intent(this@LoginActivity, HomePageActivity::class.java))
+        finish()
+    }
 
     fun login(view: View) {
         //this gets the data that the user inputted and removes spaces
@@ -74,16 +82,16 @@ class LoginActivity : AppCompatActivity() {
 
                             //this clears all instances of the log in screen and 'resets it'
                             //if you click the back button it will take you off the app
-                            val intent =
+                            /*val intent =
                                 Intent(this@LoginActivity, HomePageActivity::class.java)
                             intent.flags =
                                 Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             intent.putExtra("user_id", FirebaseAuth.getInstance().currentUser!!.uid)
-                            intent.putExtra("email_id", emailTxt)
+                            intent.putExtra("email_id", emailTxt)*/
                             snackSuccessLogin.show()
                             FirestoreClass().getUserDetails(this@LoginActivity)
-                            startActivity(intent)
-                            finish()
+                            /*startActivity(intent)
+                            finish()*/
                         } else {
                             //creates a snackbar with the specific firebase error
                             val snackError = Snackbar.make(

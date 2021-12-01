@@ -18,7 +18,7 @@ import com.google.firebase.firestore.SetOptions
 class FirestoreClass {
 
     private val mFireStore = FirebaseFirestore.getInstance()
-    
+
 
     fun registerUser(activity: UserRegistrationActivity, userInfo: User) {
 
@@ -55,7 +55,6 @@ class FirestoreClass {
             username = ""
 
         }
-
         return username
     }
 
@@ -67,7 +66,7 @@ class FirestoreClass {
                 Log.i(activity.javaClass.simpleName, document.toString())
 
                 //puts the data into a user
-/*                val user = document.toObject(User::class.java)!!
+                val user = document.toObject(User::class.java)!!
 
                 val sharedPrefrences = activity.getSharedPreferences(Constants.USER_PREFRENCES,
                     Context.MODE_PRIVATE )
@@ -78,7 +77,13 @@ class FirestoreClass {
                     Constants.LOGGED_IN_USERNAME,
                     "${user.username}"
                 )
-                editor.apply()*/
+                editor.apply()
+
+                when(activity) {
+                    is LoginActivity -> {
+                        activity.userLoggedInSuccess(user)
+                    }
+                }
             }
     }
 }

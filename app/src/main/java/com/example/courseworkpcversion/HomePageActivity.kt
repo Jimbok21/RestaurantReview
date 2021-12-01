@@ -21,10 +21,9 @@ class HomePageActivity : AppCompatActivity() {
         val userId = intent.getStringExtra("user_id")
         val emailId = intent.getStringExtra("email_id")
 
-        /*val sharedPreferences = getSharedPreferences(Constants.USER_PREFRENCES, Context.MODE_PRIVATE)
-        val username = sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, "guest")!!*/
+        val sharedPreferences = getSharedPreferences(Constants.USER_PREFRENCES, Context.MODE_PRIVATE)
+        val username = sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, "guest")!!
 
-        val username = FirestoreClass().getUsername()
         val lemon: TextView = findViewById(R.id.lemon)
         lemon.text = username
     }
