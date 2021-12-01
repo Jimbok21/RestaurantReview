@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.example.courseworkpcversion.firestore.FirestoreClass
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
@@ -17,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.login)
 
         //sets the font of the title to be different to make it look like a logo
         val titleRestaurant: TextView = findViewById(R.id.appTitleRestaurant)
@@ -80,6 +81,7 @@ class LoginActivity : AppCompatActivity() {
                             intent.putExtra("user_id", FirebaseAuth.getInstance().currentUser!!.uid)
                             intent.putExtra("email_id", emailTxt)
                             snackSuccessLogin.show()
+                            FirestoreClass().getUserDetails(this@LoginActivity)
                             startActivity(intent)
                             finish()
                         } else {

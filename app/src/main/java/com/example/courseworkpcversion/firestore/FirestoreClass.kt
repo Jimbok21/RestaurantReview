@@ -1,6 +1,8 @@
 package com.example.courseworkpcversion.firestore
 
 import android.app.Activity
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.core.content.ContextCompat
 import com.example.courseworkpcversion.LoginActivity
@@ -16,6 +18,7 @@ import com.google.firebase.firestore.SetOptions
 class FirestoreClass {
 
     private val mFireStore = FirebaseFirestore.getInstance()
+    
 
     fun registerUser(activity: UserRegistrationActivity, userInfo: User) {
 
@@ -43,6 +46,19 @@ class FirestoreClass {
         return currentUserID
     }
 
+    fun getUsername(): String {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
+
+        var username = ""
+        if(currentUser != null) {
+            username = ""
+
+        }
+
+        return username
+    }
+
     fun getUserDetails(activity: Activity) {
         //passes the collection name and document name to get the data on the user
         mFireStore.collection(Constants.USERS).document(getCurrentUserID()).get()
@@ -51,8 +67,18 @@ class FirestoreClass {
                 Log.i(activity.javaClass.simpleName, document.toString())
 
                 //puts the data into a user
-                val user = document.toObject(User::class.java)!!
+/*                val user = document.toObject(User::class.java)!!
 
+                val sharedPrefrences = activity.getSharedPreferences(Constants.USER_PREFRENCES,
+                    Context.MODE_PRIVATE )
+
+                //stores the data on the device
+                val editor: SharedPreferences.Editor = sharedPrefrences.edit()
+                editor.putString(
+                    Constants.LOGGED_IN_USERNAME,
+                    "${user.username}"
+                )
+                editor.apply()*/
             }
     }
 }
