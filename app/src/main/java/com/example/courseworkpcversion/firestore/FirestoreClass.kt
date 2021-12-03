@@ -24,9 +24,7 @@ class FirestoreClass {
 
         //adds the user data to the firebase database
         mFireStore.collection(Constants.USERS).document(userInfo.id)
-            .set(userInfo, SetOptions.merge()).addOnSuccessListener {
-                activity.userRegisterSuccess()
-            }
+            .set(userInfo, SetOptions.merge())
             .addOnFailureListener { e ->
                 Log.e(
                     activity.javaClass.simpleName,
@@ -82,6 +80,11 @@ class FirestoreClass {
                 when(activity) {
                     is LoginActivity -> {
                         activity.userLoggedInSuccess(user)
+                    }
+                }
+                when(activity) {
+                    is UserRegistrationActivity -> {
+                        activity.userRegisterSuccess(user)
                     }
                 }
             }

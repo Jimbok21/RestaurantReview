@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -82,7 +83,7 @@ class UserRegistrationActivity : AppCompatActivity() {
                             intent.putExtra("user_id", firebaseUser.uid)
                             intent.putExtra("email_id", emailTxt)
                             FirestoreClass().registerUser(this, user)
-                            startActivity(intent)
+                            FirestoreClass().getUserDetails(this@UserRegistrationActivity)
                             snackSuccessCreated.show()
                             finish()
                         } else {
@@ -100,7 +101,10 @@ class UserRegistrationActivity : AppCompatActivity() {
         }
     }
 
-    fun userRegisterSuccess() {
-
+    fun userRegisterSuccess(user: User) {
+        Log.i("Username: ", user.username)
+        Log.i("Email: ", user.email)
+        startActivity(Intent(this@UserRegistrationActivity, HomePageActivity::class.java))
+        finish()
     }
 }

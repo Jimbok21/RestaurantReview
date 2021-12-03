@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/refresh"
+        android:id="@+id/search"
         android:icon="@drawable/ic_search"
         app:showAsAction="ifRoom"
-        android:title="Compose">
+        android:title="search">
     </item>
     <item
         android:id="@+id/logoutBtn"
         android:title="Log Out"
-        android:onClick="logout">
+        >
     </item>
 </menu>
