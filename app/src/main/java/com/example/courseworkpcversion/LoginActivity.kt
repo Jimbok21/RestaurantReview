@@ -82,16 +82,10 @@ class LoginActivity : AppCompatActivity() {
 
                             //this clears all instances of the log in screen and 'resets it'
                             //if you click the back button it will take you off the app
-                            /*val intent =
-                                Intent(this@LoginActivity, HomePageActivity::class.java)
-                            intent.flags =
-                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            intent.putExtra("user_id", FirebaseAuth.getInstance().currentUser!!.uid)
-                            intent.putExtra("email_id", emailTxt)*/
+
                             snackSuccessLogin.show()
                             FirestoreClass().getUserDetails(this@LoginActivity)
-                            /*startActivity(intent)
-                            finish()*/
+
                         } else {
                             //creates a snackbar with the specific firebase error
                             val snackError = Snackbar.make(
