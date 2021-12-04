@@ -3,22 +3,21 @@ package com.example.courseworkpcversion.firestore
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.util.Log
-import androidx.core.content.ContextCompat
 import com.example.courseworkpcversion.LoginActivity
-import com.example.courseworkpcversion.R
 import com.example.courseworkpcversion.UserRegistrationActivity
 import com.example.courseworkpcversion.models.User
 import com.example.courseworkpcversion.utils.Constants
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 class FirestoreClass {
 
     private val mFireStore = FirebaseFirestore.getInstance()
-
 
     fun registerUser(activity: UserRegistrationActivity, userInfo: User) {
 
@@ -42,18 +41,6 @@ class FirestoreClass {
         }
 
         return currentUserID
-    }
-
-    fun getUsername(): String {
-        val currentUser = FirebaseAuth.getInstance().currentUser
-
-
-        var username = ""
-        if(currentUser != null) {
-            username = ""
-
-        }
-        return username
     }
 
     fun getUserDetails(activity: Activity) {
@@ -88,5 +75,22 @@ class FirestoreClass {
                     }
                 }
             }
+    }
+
+    fun uploadImageToStorage(activity: Activity, imageFileURI: Uri?) {
+        val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(
+            Constants.USER_PROFILE_IMAGE + System.currentTimeMillis() + "."
+                    + Constants.getFileExtension(activity, imageFileURI)
+        )
+
+        sRef.putFile(imageFileURI!!).addOnSuccessListener { taskSnapshot ->
+            Log.e("Firebase Image URL",
+            taskSnapshot.metadata!!.reference!!.downloadUrl.toString())
+
+            //gets the image url from the task snapshot
+            taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener { uri ->
+                Log.e("Downloadable Image URL", uri.toString())
+            }
+        }
     }
 }

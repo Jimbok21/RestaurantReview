@@ -1,7 +1,9 @@
 package com.example.courseworkpcversion
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -9,12 +11,10 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
-
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.courseworkpcversion.firestore.FirestoreClass
 import com.example.courseworkpcversion.utils.Constants
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -35,6 +35,7 @@ class HomePageActivity : AppCompatActivity() {
 
         val lemon: TextView = findViewById(R.id.lemon)
         lemon.text = username
+
 
         //setting up the toolbar
         val mToolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -63,6 +64,35 @@ class HomePageActivity : AppCompatActivity() {
 
         startActivity(Intent(this@HomePageActivity, LoginActivity::class.java))
         finish()
+    }
+
+    fun button(view: View) {
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+        == PackageManager.PERMISSION_GRANTED)
+        {
+            Snackbar.make(view, "you have permission", Snackbar.LENGTH_LONG).show()
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            Constants.READ_STORAGE_PERMISSION_CODE)
+            //Snackbar.make(view, "you dont have permission", Snackbar.LENGTH_LONG).show()
+        }
+
+        //FirestoreClass().uploadImageToStorage(this, mSelectedImageFileUri)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == Constants.READ_STORAGE_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Snackbar.make(findViewById(android.R.id.content), "permission granted", Snackbar.LENGTH_LONG).show()
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), "permission not granted", Snackbar.LENGTH_LONG).show()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
