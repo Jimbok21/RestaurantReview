@@ -21,11 +21,17 @@ import com.example.courseworkpcversion.utils.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.auth.User
 import java.io.IOException
 
 //this class is the main page of the app that will show the reviews and allow the user to navigate
 //to other parts of the app
 class HomePageActivity : AppCompatActivity() {
+
+    //the image on the device
+    private var mSelectedImageFileUri: Uri? = null
+    //the image on the cloud storage
+    private var mUserProfileImageURL: String =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +40,12 @@ class HomePageActivity : AppCompatActivity() {
         val userId = intent.getStringExtra("user_id")
         val emailId = intent.getStringExtra("email_id")
 
+
         val sharedPreferences = getSharedPreferences(Constants.USER_PREFRENCES, Context.MODE_PRIVATE)
         val username = sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, getString(R.string.guest))!!
 
-        val lemon: TextView = findViewById(R.id.lemon)
-        lemon.text = username
+        val userText: TextView = findViewById(R.id.username)
+        userText.text = username
 
 
         //setting up the toolbar
@@ -70,7 +77,7 @@ class HomePageActivity : AppCompatActivity() {
         finish()
     }
 
-    fun button(view: View) {
+    fun pickProfilePic(view: View) {
         ////checks if storage permission has been granted to access image files on the phone
         //will ask you for permission if it does not already have it
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -85,6 +92,22 @@ class HomePageActivity : AppCompatActivity() {
         //FirestoreClass().uploadImageToStorage(this, mSelectedImageFileUri)
     }
 
+    fun button(view: View) {
+        if (mSelectedImageFileUri != null) {
+            FirestoreClass().uploadImageToStorage(this, mSelectedImageFileUri)
+            val snackSuccessLogin =
+                Snackbar.make(view, getString(R.string.SuccessImageUpload), Snackbar.LENGTH_LONG)
+            snackSuccessLogin.view.setBackgroundColor(
+                ContextCompat.getColor(
+                    this,
+                    R.color.ColourSnackbarSuccess
+                )
+            )
+            snackSuccessLogin.show()
+        }
+    }
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val userIcon = findViewById<ImageView>(R.id.userIcon)
@@ -92,9 +115,9 @@ class HomePageActivity : AppCompatActivity() {
             if (requestCode == Constants.PICK_IMAGE_REQUEST_CODE)
                 if (data != null) {
                     try {
-                        val selectedImageFileUri = data.data!!
+                        mSelectedImageFileUri = data.data!!
 
-                        userIcon.setImageURI(selectedImageFileUri)
+                        userIcon.setImageURI(mSelectedImageFileUri!!)
                     } catch (e: IOException) {
                         e.printStackTrace()
                         val snackError =
@@ -146,5 +169,11 @@ class HomePageActivity : AppCompatActivity() {
 
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun imageUploadSuccess(imageURL: String) {
+
+        mUserProfileImageURL = imageURL
+        FirestoreClass().updateProfilePic(mUserProfileImageURL)
     }
 }

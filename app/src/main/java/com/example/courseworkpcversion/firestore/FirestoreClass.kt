@@ -5,10 +5,14 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
+import androidx.core.content.ContextCompat
+import com.example.courseworkpcversion.HomePageActivity
 import com.example.courseworkpcversion.LoginActivity
+import com.example.courseworkpcversion.R
 import com.example.courseworkpcversion.UserRegistrationActivity
 import com.example.courseworkpcversion.models.User
 import com.example.courseworkpcversion.utils.Constants
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -17,7 +21,7 @@ import com.google.firebase.storage.StorageReference
 
 class FirestoreClass {
 
-    private val mFireStore = FirebaseFirestore.getInstance()
+    val mFireStore = FirebaseFirestore.getInstance()
 
     fun registerUser(activity: UserRegistrationActivity, userInfo: User) {
 
@@ -74,6 +78,7 @@ class FirestoreClass {
                         activity.userRegisterSuccess(user)
                     }
                 }
+
             }
     }
 
@@ -90,7 +95,23 @@ class FirestoreClass {
             //gets the image url from the task snapshot
             taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener { uri ->
                 Log.e("Downloadable Image URL", uri.toString())
+                when(activity) {
+                    is HomePageActivity -> {
+                        activity.imageUploadSuccess(uri.toString())
+                    }
+                }
             }
+
+        }.addOnFailureListener { exception ->
+            Log.e(activity.javaClass.simpleName, exception.message, exception)
+        }
+    }
+    fun updateProfilePic(imageURL: String) {
+        val userRef = mFireStore.collection(Constants.USERS).document(getCurrentUserID())
+        userRef.update(Constants.IMAGE, imageURL).addOnSuccessListener {
+            Log.d("Update Profile Pic", "pfp successfully updated")
+        }.addOnFailureListener { e ->
+            Log.w("Update Profile Pic", "pfp NOT successfully updated")
         }
     }
 }
