@@ -88,6 +88,8 @@ class HomePageActivity : AppCompatActivity() {
 
         updateProfilePicture(profilePic)
 
+        val recyclerView: RecyclerLayout
+
     }
 
     fun updateProfilePicture(image: String) {

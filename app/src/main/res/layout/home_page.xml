@@ -58,67 +58,69 @@
         app:layout_constraintVertical_bias="0.761"></TextView>
 
     <LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/toolbar">
-    <androidx.cardview.widget.CardView
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        app:cardBackgroundColor="@android:color/black"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/userIcon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:padding="5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="6dp"
-            android:layout_gravity="left"
-            android:src="@drawable/default_profile_pic"
-            android:onClick="pickProfilePic"
-            app:shapeAppearanceOverlay="@style/roundedImageView"
-            ></com.google.android.material.imageview.ShapeableImageView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:cardBackgroundColor="@android:color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <com.example.courseworkpcversion.utils.CustomTextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/username"
-            android:textColor="@color/white"
-            android:textSize="50dp"
-            android:layout_marginLeft="120dp"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/userIcon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="left"
+                android:layout_marginRight="6dp"
+                android:onClick="pickProfilePic"
+                android:padding="5dp"
+                android:src="@drawable/default_profile_pic"
+                app:shapeAppearanceOverlay="@style/roundedImageView"></com.google.android.material.imageview.ShapeableImageView>
 
-            ></com.example.courseworkpcversion.utils.CustomTextView>
-        <com.example.courseworkpcversion.utils.CustomTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/reviews"
-            android:textColor="@color/white"
-            android:textSize="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="100dp"
+            <com.example.courseworkpcversion.utils.CustomTextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="120dp"
+                android:text="@string/username"
+                android:textColor="@color/white"
+                android:textSize="50dp"
 
-            ></com.example.courseworkpcversion.utils.CustomTextView>
-        <com.example.courseworkpcversion.utils.CustomButton
-            android:id="@+id/SaveProfilePicBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="button"
-            android:text="@string/saveProfilePic"
-            android:layout_marginLeft="210dp"
-            android:layout_marginTop="55dp"
-            android:textSize="20dp"
-            android:padding="10dp"
-            android:background="@drawable/button_background"
-            ></com.example.courseworkpcversion.utils.CustomButton>
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
+                ></com.example.courseworkpcversion.utils.CustomTextView>
+
+            <com.example.courseworkpcversion.utils.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="100dp"
+                android:text="@string/reviews"
+                android:textColor="@color/white"
+                android:textSize="50dp"
+
+                ></com.example.courseworkpcversion.utils.CustomTextView>
+
+            <com.example.courseworkpcversion.utils.CustomButton
+                android:id="@+id/SaveProfilePicBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="210dp"
+                android:layout_marginTop="55dp"
+                android:background="@drawable/button_background"
+                android:onClick="button"
+                android:padding="10dp"
+                android:text="@string/saveProfilePic"
+                android:textSize="20dp"></com.example.courseworkpcversion.utils.CustomButton>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
@@ -131,7 +133,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_layout"
-        >
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/bottom_nav_layout"></com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="0dp"
+        android:layout_height="173dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
