@@ -9,9 +9,13 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 
 import com.example.courseworkpcversion.firestore.FirestoreClass
 import com.example.courseworkpcversion.utils.Constants
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
@@ -21,7 +25,7 @@ class HomePageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home_page)
+        setContentView(R.layout.home_page)
 
         val userId = intent.getStringExtra("user_id")
         val emailId = intent.getStringExtra("email_id")
@@ -32,8 +36,25 @@ class HomePageActivity : AppCompatActivity() {
         val lemon: TextView = findViewById(R.id.lemon)
         lemon.text = username
 
+        //setting up the toolbar
         val mToolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(mToolbar)
+
+        //setting the bottom navigation bar to change the activity
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
+
+        bottomNav.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.map -> {
+                    startActivity(Intent(this@HomePageActivity, MapsActivity::class.java))
+                }
+                R.id.restaurant -> {
+                    startActivity(Intent(this@HomePageActivity, RestaurantsActivity::class.java))
+                }
+            }
+            true
+        }
+
     }
 
     fun logout(view: View) {
@@ -53,7 +74,7 @@ class HomePageActivity : AppCompatActivity() {
         val myView = findViewById<View>(R.id.toolbar)
         when (item.itemId) {
             R.id.search -> {
-                val snackbar = Snackbar.make(myView, "lime", Snackbar.LENGTH_LONG)
+                val snackbar = Snackbar.make(myView, "searching", Snackbar.LENGTH_LONG)
                 snackbar.show()
                 return true
             }
