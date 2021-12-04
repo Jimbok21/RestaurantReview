@@ -1,14 +1,17 @@
 package com.example.courseworkpcversion
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
@@ -18,6 +21,7 @@ import com.example.courseworkpcversion.utils.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import java.io.IOException
 
 //this class is the main page of the app that will show the reviews and allow the user to navigate
 //to other parts of the app
@@ -31,7 +35,7 @@ class HomePageActivity : AppCompatActivity() {
         val emailId = intent.getStringExtra("email_id")
 
         val sharedPreferences = getSharedPreferences(Constants.USER_PREFRENCES, Context.MODE_PRIVATE)
-        val username = sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, "guest")!!
+        val username = sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, getString(R.string.guest))!!
 
         val lemon: TextView = findViewById(R.id.lemon)
         lemon.text = username
@@ -67,35 +71,63 @@ class HomePageActivity : AppCompatActivity() {
     }
 
     fun button(view: View) {
+        ////checks if storage permission has been granted to access image files on the phone
+        //will ask you for permission if it does not already have it
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
         == PackageManager.PERMISSION_GRANTED)
         {
-            Snackbar.make(view, "you have permission", Snackbar.LENGTH_LONG).show()
+            Constants.showImageChooser(this)
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
             Constants.READ_STORAGE_PERMISSION_CODE)
-            //Snackbar.make(view, "you dont have permission", Snackbar.LENGTH_LONG).show()
         }
 
         //FirestoreClass().uploadImageToStorage(this, mSelectedImageFileUri)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val userIcon = findViewById<ImageView>(R.id.userIcon)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == Constants.PICK_IMAGE_REQUEST_CODE)
+                if (data != null) {
+                    try {
+                        val selectedImageFileUri = data.data!!
+
+                        userIcon.setImageURI(selectedImageFileUri)
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                        val snackError =
+                            Snackbar.make(findViewById(android.R.id.content), getString(R.string.imageSelectionFailed), Snackbar.LENGTH_LONG)
+                        snackError.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarError))
+                        snackError.show()
+                    }
+                }
+        }
+    }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
+        //asks you for permission to read files
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == Constants.READ_STORAGE_PERMISSION_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Snackbar.make(findViewById(android.R.id.content), "permission granted", Snackbar.LENGTH_LONG).show()
+                Constants.showImageChooser(this)
             } else {
-                Snackbar.make(findViewById(android.R.id.content), "permission not granted", Snackbar.LENGTH_LONG).show()
+                val snackError =
+                    Snackbar.make(findViewById(android.R.id.content), getString(R.string.permissionDenied), Snackbar.LENGTH_LONG)
+                snackError.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarError))
+                snackError.show()
             }
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //inflates the top toolbar
         menuInflater.inflate(R.menu.toolbar_layout, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -104,7 +136,7 @@ class HomePageActivity : AppCompatActivity() {
         val myView = findViewById<View>(R.id.toolbar)
         when (item.itemId) {
             R.id.search -> {
-                val snackbar = Snackbar.make(myView, "searching", Snackbar.LENGTH_LONG)
+                val snackbar = Snackbar.make(myView, getString(R.string.searching), Snackbar.LENGTH_LONG)
                 snackbar.show()
                 return true
             }

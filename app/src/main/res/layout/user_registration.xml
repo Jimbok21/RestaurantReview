@@ -44,7 +44,7 @@
             android:textColor="@color/white"
             android:background="#50ffffff"
             android:ems="15"
-            android:drawableStart="@drawable/username_icon"
+            android:drawableStart="@drawable/ic_username"
             android:drawablePadding="10dp"
             android:backgroundTint="@color/design_default_color_secondary"
             >
@@ -71,7 +71,7 @@
             android:textColor="@color/white"
             android:background="#50ffffff"
             android:ems="15"
-            android:drawableStart="@drawable/username_icon"
+            android:drawableStart="@drawable/ic_username"
             android:drawablePadding="10dp"
             android:backgroundTint="@color/design_default_color_secondary"
             >
@@ -104,7 +104,7 @@
             android:background="#50ffffff"
             android:drawablePadding="10dp"
             android:backgroundTint="@color/design_default_color_secondary"
-            android:drawableStart="@drawable/password_icon"
+            android:drawableStart="@drawable/ic_password"
             >
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
