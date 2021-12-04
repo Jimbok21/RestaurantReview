@@ -21,7 +21,7 @@
         <entry key="..\:/Users/Jimmy/Documents/Uni Work/YEAR 3/android apps/restaurant coursework/app/src/main/res/layout/fragment_second.xml" value="0.18611111111111112" />
         <entry key="..\:/Users/Jimmy/Documents/Uni Work/YEAR 3/android apps/restaurant coursework/app/src/main/res/layout/home_page.xml" value="0.24407894736842106" />
         <entry key="..\:/Users/Jimmy/Documents/Uni Work/YEAR 3/android apps/restaurant coursework/app/src/main/res/layout/login.xml" value="0.25" />
-        <entry key="..\:/Users/Jimmy/Documents/Uni Work/YEAR 3/android apps/restaurant coursework/app/src/main/res/layout/maps.xml" value="0.33" />
+        <entry key="..\:/Users/Jimmy/Documents/Uni Work/YEAR 3/android apps/restaurant coursework/app/src/main/res/layout/maps.xml" value="0.25" />
         <entry key="..\:/Users/Jimmy/Documents/Uni Work/YEAR 3/android apps/restaurant coursework/app/src/main/res/layout/recycler_view.xml" value="0.14375" />
         <entry key="..\:/Users/Jimmy/Documents/Uni Work/YEAR 3/android apps/restaurant coursework/app/src/main/res/layout/restaurants.xml" value="0.19979508196721313" />
         <entry key="..\:/Users/Jimmy/Documents/Uni Work/YEAR 3/android apps/restaurant coursework/app/src/main/res/layout/toolbar.xml" value="0.21614583333333334" />
@@ -32,6 +32,7 @@
         <entry key="..\:/Users/Jimmy/Documents/Uni Work/YEAR 3/android apps/restaurant coursework/app/src/main/res/menu/bottom_nav_layout.xml" value="0.24473684210526317" />
         <entry key="..\:/Users/Jimmy/Documents/Uni Work/YEAR 3/android apps/restaurant coursework/app/src/main/res/menu/menu_main.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/Jimmy/Documents/Uni Work/YEAR 3/android apps/restaurant coursework/app/src/main/res/menu/toolbar_layout.xml" value="0.24473684210526317" />
+        <entry key="..\:/Users/Jimmy/Documents/Uni Work/YEAR 3/android apps/restaurant coursework/app/src/main/res/menu/toolbar_layout_map.xml" value="0.24703947368421053" />
       </map>
     </option>
   </component>

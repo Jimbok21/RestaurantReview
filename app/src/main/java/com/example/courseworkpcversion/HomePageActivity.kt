@@ -21,8 +21,13 @@ import com.example.courseworkpcversion.utils.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.auth.User
+import android.util.Log
+import android.widget.Toast
+import com.example.courseworkpcversion.models.User
+import com.example.courseworkpcversion.utils.GlideLoader
+import kotlinx.coroutines.*
 import java.io.IOException
+
 
 //this class is the main page of the app that will show the reviews and allow the user to navigate
 //to other parts of the app
@@ -30,8 +35,9 @@ class HomePageActivity : AppCompatActivity() {
 
     //the image on the device
     private var mSelectedImageFileUri: Uri? = null
+
     //the image on the cloud storage
-    private var mUserProfileImageURL: String =""
+    private var mUserProfileImageURL: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +46,23 @@ class HomePageActivity : AppCompatActivity() {
         val userId = intent.getStringExtra("user_id")
         val emailId = intent.getStringExtra("email_id")
 
+        FirestoreClass().getUserDetails(this)
+        val sharedPreferences =
+            getSharedPreferences(Constants.USER_PREFRENCES, Context.MODE_PRIVATE)
+        val username =
+            sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, getString(R.string.guest))!!
+        var profilePic = sharedPreferences.getString(
+            Constants.LOGGED_IN_USER_IMAGE,
+            Constants.DEFAULT_PROFILE_PIC
+        )!!
 
-        val sharedPreferences = getSharedPreferences(Constants.USER_PREFRENCES, Context.MODE_PRIVATE)
-        val username = sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, getString(R.string.guest))!!
+        //the program will crash if the user has not set an image without this if statement
+        if(profilePic == "") {
+            profilePic = Constants.DEFAULT_PROFILE_PIC
+        }
 
+
+        //sets the username text
         val userText: TextView = findViewById(R.id.username)
         userText.text = username
 
@@ -56,7 +75,7 @@ class HomePageActivity : AppCompatActivity() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
         bottomNav.setOnItemSelectedListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.map -> {
                     startActivity(Intent(this@HomePageActivity, MapsActivity::class.java))
                 }
@@ -67,12 +86,22 @@ class HomePageActivity : AppCompatActivity() {
             true
         }
 
+        updateProfilePicture(profilePic)
+
     }
 
-    fun logout(view: View) {
+    fun updateProfilePicture(image: String) {
+        //sets up the profile pic of the user
+        var uriImage: Uri = Uri.parse(image)
+        val profilePicIcon = findViewById<ImageView>(R.id.userIcon)
+        /*var lemon = findViewById<TextView>(R.id.lemon)
+        lemon.text = uriImage.toString()*/
+
+        GlideLoader(this@HomePageActivity).loadUserPicture(uriImage, profilePicIcon)
+    }
+    fun logout() {
         //logs the user out and takes them back to the sign in page
         FirebaseAuth.getInstance().signOut()
-
         startActivity(Intent(this@HomePageActivity, LoginActivity::class.java))
         finish()
     }
@@ -80,23 +109,28 @@ class HomePageActivity : AppCompatActivity() {
     fun pickProfilePic(view: View) {
         ////checks if storage permission has been granted to access image files on the phone
         //will ask you for permission if it does not already have it
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-        == PackageManager.PERMISSION_GRANTED)
-        {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+            == PackageManager.PERMISSION_GRANTED
+        ) {
             Constants.showImageChooser(this)
         } else {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-            Constants.READ_STORAGE_PERMISSION_CODE)
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                Constants.READ_STORAGE_PERMISSION_CODE
+            )
         }
-
-        //FirestoreClass().uploadImageToStorage(this, mSelectedImageFileUri)
     }
 
     fun button(view: View) {
+        //saves the new profile picture
         if (mSelectedImageFileUri != null) {
             FirestoreClass().uploadImageToStorage(this, mSelectedImageFileUri)
             val snackSuccessLogin =
-                Snackbar.make(view, getString(R.string.SuccessImageUpload), Snackbar.LENGTH_LONG)
+                Snackbar.make(
+                    view,
+                    getString(R.string.SuccessImageUpload),
+                    Snackbar.LENGTH_LONG
+                )
             snackSuccessLogin.view.setBackgroundColor(
                 ContextCompat.getColor(
                     this,
@@ -109,6 +143,7 @@ class HomePageActivity : AppCompatActivity() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        //sets the profile picture to the file selected locally
         super.onActivityResult(requestCode, resultCode, data)
         val userIcon = findViewById<ImageView>(R.id.userIcon)
         if (resultCode == Activity.RESULT_OK) {
@@ -116,13 +151,21 @@ class HomePageActivity : AppCompatActivity() {
                 if (data != null) {
                     try {
                         mSelectedImageFileUri = data.data!!
-
-                        userIcon.setImageURI(mSelectedImageFileUri!!)
+                        GlideLoader(this).loadUserPicture(mSelectedImageFileUri!!, userIcon)
                     } catch (e: IOException) {
                         e.printStackTrace()
                         val snackError =
-                            Snackbar.make(findViewById(android.R.id.content), getString(R.string.imageSelectionFailed), Snackbar.LENGTH_LONG)
-                        snackError.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarError))
+                            Snackbar.make(
+                                findViewById(android.R.id.content),
+                                getString(R.string.imageSelectionFailed),
+                                Snackbar.LENGTH_LONG
+                            )
+                        snackError.view.setBackgroundColor(
+                            ContextCompat.getColor(
+                                this,
+                                R.color.ColourSnackbarError
+                            )
+                        )
                         snackError.show()
                     }
                 }
@@ -142,8 +185,17 @@ class HomePageActivity : AppCompatActivity() {
                 Constants.showImageChooser(this)
             } else {
                 val snackError =
-                    Snackbar.make(findViewById(android.R.id.content), getString(R.string.permissionDenied), Snackbar.LENGTH_LONG)
-                snackError.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarError))
+                    Snackbar.make(
+                        findViewById(android.R.id.content),
+                        getString(R.string.permissionDenied),
+                        Snackbar.LENGTH_LONG
+                    )
+                snackError.view.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.ColourSnackbarError
+                    )
+                )
                 snackError.show()
             }
         }
@@ -163,17 +215,24 @@ class HomePageActivity : AppCompatActivity() {
                 snackbar.show()
                 return true
             }
-            R.id.logoutBtn -> {
-                logout(myView)
+            R.id.logoutToolbar -> {
+                logout()
             }
-
         }
         return super.onOptionsItemSelected(item)
     }
 
     fun imageUploadSuccess(imageURL: String) {
-
+        //updates the profile pic when the image is uploaded
         mUserProfileImageURL = imageURL
         FirestoreClass().updateProfilePic(mUserProfileImageURL)
+    }
+
+    fun refresh(user: User) {
+        Log.i("Username: ", user.username)
+        Log.i("Email: ", user.email)
+        Log.i("image", user.image)
+
+        updateProfilePicture(user.image)
     }
 }

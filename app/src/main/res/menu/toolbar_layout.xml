@@ -8,7 +8,7 @@
         android:title="search">
     </item>
     <item
-        android:id="@+id/logoutBtn"
+        android:id="@+id/logoutToolbar"
         android:title="Log Out"
         >
     </item>

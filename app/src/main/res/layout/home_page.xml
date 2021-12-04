@@ -35,6 +35,10 @@
         app:title="@string/appTitle"
         app:titleTextColor="@android:color/white"></androidx.appcompat.widget.Toolbar>
 
+    <!--      <include
+        layout="@layout/recycler_view"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+        ></include>-->
 
     <TextView
         android:id="@+id/lemon"
@@ -45,21 +49,15 @@
         android:gravity="center"
         android:text="@string/reviewer"
         android:textColor="@color/teal_200"
-        android:textSize="40dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.561">
-    </TextView>
+        app:layout_constraintVertical_bias="0.761"></TextView>
 
-  <!--      <include
-        layout="@layout/recycler_view"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
-        ></include>-->
-
-<LinearLayout
+    <LinearLayout
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -108,7 +106,7 @@
 
             ></com.example.courseworkpcversion.utils.CustomTextView>
         <com.example.courseworkpcversion.utils.CustomButton
-            android:id="@+id/logoutBtn"
+            android:id="@+id/SaveProfilePicBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="button"

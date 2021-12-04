@@ -57,8 +57,10 @@ class FirestoreClass {
                 //puts the data into a user
                 val user = document.toObject(User::class.java)!!
 
-                val sharedPrefrences = activity.getSharedPreferences(Constants.USER_PREFRENCES,
-                    Context.MODE_PRIVATE )
+                val sharedPrefrences = activity.getSharedPreferences(
+                    Constants.USER_PREFRENCES,
+                    Context.MODE_PRIVATE
+                )
 
                 //stores the data on the device
                 val editor: SharedPreferences.Editor = sharedPrefrences.edit()
@@ -68,17 +70,23 @@ class FirestoreClass {
                 )
                 editor.apply()
 
-                when(activity) {
+                editor.putString(
+                    Constants.LOGGED_IN_USER_IMAGE,
+                    "${user.image}"
+                )
+                editor.apply()
+
+                when (activity) {
                     is LoginActivity -> {
                         activity.userLoggedInSuccess(user)
                     }
-                }
-                when(activity) {
                     is UserRegistrationActivity -> {
                         activity.userRegisterSuccess(user)
                     }
+                    is HomePageActivity -> {
+                        activity.refresh(user)
+                    }
                 }
-
             }
     }
 
@@ -114,4 +122,5 @@ class FirestoreClass {
             Log.w("Update Profile Pic", "pfp NOT successfully updated")
         }
     }
+
 }

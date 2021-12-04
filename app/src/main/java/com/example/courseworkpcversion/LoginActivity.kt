@@ -42,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
     fun userLoggedInSuccess(user: User) {
         Log.i("Username: ", user.username)
         Log.i("Email: ", user.email)
+        Log.i("ProfilePic: ", user.image)
         startActivity(Intent(this@LoginActivity, HomePageActivity::class.java))
         finish()
     }
