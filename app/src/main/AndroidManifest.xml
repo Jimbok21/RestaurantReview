@@ -47,7 +47,7 @@
             >
         </activity>
         <activity
-            android:name=".WriteReview"
+            android:name=".WriteReviewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             >

@@ -5,14 +5,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
-import androidx.core.content.ContextCompat
-import com.example.courseworkpcversion.HomePageActivity
-import com.example.courseworkpcversion.LoginActivity
-import com.example.courseworkpcversion.R
-import com.example.courseworkpcversion.UserRegistrationActivity
+import com.example.courseworkpcversion.*
 import com.example.courseworkpcversion.models.User
 import com.example.courseworkpcversion.utils.Constants
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -58,7 +53,7 @@ class FirestoreClass {
                 val user = document.toObject(User::class.java)!!
 
                 val sharedPrefrences = activity.getSharedPreferences(
-                    Constants.USER_PREFRENCES,
+                    Constants.USER_PREFERENCES,
                     Context.MODE_PRIVATE
                 )
 
@@ -91,8 +86,17 @@ class FirestoreClass {
     }
 
     fun uploadImageToStorage(activity: Activity, imageFileURI: Uri?) {
+        var namePrefix = ""
+        when(activity) {
+            is HomePageActivity -> {
+                namePrefix = Constants.USER_PROFILE_IMAGE
+            }
+            is WriteReviewActivity -> {
+                namePrefix = Constants.REVIEW_IMAGE
+            }
+        }
         val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(
-            Constants.USER_PROFILE_IMAGE + System.currentTimeMillis() + "."
+            namePrefix + System.currentTimeMillis() + "."
                     + Constants.getFileExtension(activity, imageFileURI)
         )
 
@@ -114,6 +118,7 @@ class FirestoreClass {
             Log.e(activity.javaClass.simpleName, exception.message, exception)
         }
     }
+
     fun updateProfilePic(imageURL: String) {
         val userRef = mFireStore.collection(Constants.USERS).document(getCurrentUserID())
         userRef.update(Constants.IMAGE, imageURL).addOnSuccessListener {

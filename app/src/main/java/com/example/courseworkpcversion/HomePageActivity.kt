@@ -47,7 +47,7 @@ class HomePageActivity : AppCompatActivity() {
 
         FirestoreClass().getUserDetails(this)
         val sharedPreferences =
-            getSharedPreferences(Constants.USER_PREFRENCES, Context.MODE_PRIVATE)
+            getSharedPreferences(Constants.USER_PREFERENCES, Context.MODE_PRIVATE)
         val username =
             sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, getString(R.string.guest))!!
         var profilePic = sharedPreferences.getString(
@@ -92,7 +92,7 @@ class HomePageActivity : AppCompatActivity() {
     }
 
     fun makeNewReview(view: View) {
-        startActivity(Intent(this@HomePageActivity, WriteReview::class.java))
+        startActivity(Intent(this@HomePageActivity, WriteReviewActivity::class.java))
     }
 
     fun updateProfilePicture(image: String) {
