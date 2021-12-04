@@ -23,6 +23,9 @@
     <string name="missingPassword">Please enter a password</string>
     <string name="missingEmail">Please enter an email</string>
     <string name="missingUsername">Please enter a username</string>
+    <string name="missingReviewRating">Please give the review a rating</string>
+    <string name="missingReview">Please give the review a body</string>
+    <string name="missingRestaurant">Please select a restaurant</string>
 
     <string name="registerSuccess">Account Registered Successfully</string>
     <string name="loggingIn">Logging in</string>
@@ -34,4 +37,6 @@
     <string name="reviews">Reviews:</string>
     <string name="saveProfilePic">Save Profile Picture</string>
     <string name="SuccessImageUpload">Your profile picture has been successfully updated</string>
+
+
 </resources>

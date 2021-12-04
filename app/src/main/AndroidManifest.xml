@@ -45,7 +45,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             >
-
+        </activity>
+        <activity
+            android:name=".WriteReview"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
         </activity>
     </application>
 

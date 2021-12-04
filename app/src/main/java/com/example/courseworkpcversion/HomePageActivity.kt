@@ -22,7 +22,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import android.util.Log
-import android.widget.Toast
 import com.example.courseworkpcversion.models.User
 import com.example.courseworkpcversion.utils.GlideLoader
 import kotlinx.coroutines.*
@@ -88,8 +87,12 @@ class HomePageActivity : AppCompatActivity() {
 
         updateProfilePicture(profilePic)
 
-        val recyclerView: RecyclerLayout
+        //val recyclerView: RecyclerLayout
 
+    }
+
+    fun makeNewReview(view: View) {
+        startActivity(Intent(this@HomePageActivity, WriteReview::class.java))
     }
 
     fun updateProfilePicture(image: String) {

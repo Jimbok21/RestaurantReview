@@ -119,6 +119,17 @@
                 android:padding="10dp"
                 android:text="@string/saveProfilePic"
                 android:textSize="20dp"></com.example.courseworkpcversion.utils.CustomButton>
+            <com.example.courseworkpcversion.utils.CustomButton
+                android:id="@+id/newReviewBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="270dp"
+                android:layout_marginTop="100dp"
+                android:background="@drawable/button_background"
+                android:padding="10dp"
+                android:text="Write Review"
+                android:onClick="makeNewReview"
+                android:textSize="20dp"></com.example.courseworkpcversion.utils.CustomButton>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 
@@ -144,5 +155,6 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
