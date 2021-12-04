@@ -43,7 +43,7 @@ class HomePageActivity : AppCompatActivity() {
         //setting the bottom navigation bar to change the activity
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
-        bottomNav.setOnNavigationItemSelectedListener {
+        bottomNav.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.map -> {
                     startActivity(Intent(this@HomePageActivity, MapsActivity::class.java))

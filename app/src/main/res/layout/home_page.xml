@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/button_right_colour"
     android:orientation="vertical"
     android:theme="@style/AppThemeActionBar"
     tools:context=".HomePageActivity">
@@ -64,8 +63,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.561">
-
     </TextView>
+
+    <include
+        layout="@layout/recycler_view"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"></include>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
@@ -75,7 +77,6 @@
         android:background="@color/teal_700"
         android:theme="@style/AppTheme"
         app:itemIconTint="@color/black"
-        android:onClick="navigationClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
