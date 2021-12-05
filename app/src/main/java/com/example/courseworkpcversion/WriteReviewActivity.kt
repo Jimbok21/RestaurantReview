@@ -29,31 +29,30 @@ class WriteReviewActivity : AppCompatActivity() {
     //image on the cloud storage
     private var reviewImageURL: String = ""
 
-    lateinit var spinnerSelected : Spinner
-    lateinit var result: TextView
+    private var restaurant: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.write_review)
 
-        spinnerSelected = findViewById<Spinner>(R.id.dropdownSpinner)
-        result = findViewById(R.id.lemon)
+        val spinner = findViewById<Spinner>(R.id.dropdownSpinner)
 
-        val options = arrayOf("Restaurtant 1", "Restaurant 2", "Restaurant 3")
+        val RestaurantsList = arrayOf("Restaurtant 1", "Restaurant 2", "Restaurant 3")
 
-        spinnerSelected.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, options)
+        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, RestaurantsList)
+        spinner.adapter = arrayAdapter
 
-        spinnerSelected.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long
             ) {
-                result.text = options.get(position)
+                restaurant = RestaurantsList[position]
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                result.text = "please pick a Restaurant"
+                TODO("Not yet implemented")
             }
 
         }
@@ -105,7 +104,9 @@ class WriteReviewActivity : AppCompatActivity() {
 
 
     fun saveReviewHandler(view: View) {
-        val restaurantName = "Restaurant Test"
+
+        //val restaurantName = "restauranttest"
+        val restaurantName = restaurant
         val reviewTextInputEditText = findViewById<TextInputEditText>(R.id.textInputEditText)
         val ratingbar = findViewById<RatingBar>(R.id.ratingbar)
         val rating = ratingbar.rating
@@ -161,7 +162,7 @@ class WriteReviewActivity : AppCompatActivity() {
         review["image"] = image
 
         reviewDb.collection("reviews").add(review).addOnSuccessListener { document ->
-           // startActivity(Intent(this@WriteReviewActivity, HomePageActivity::class.java))
+           startActivity(Intent(this@WriteReviewActivity, HomePageActivity::class.java))
         }.addOnFailureListener { e ->
             Log.e(
                 this.javaClass.simpleName,
@@ -224,7 +225,8 @@ class WriteReviewActivity : AppCompatActivity() {
     fun reviewImageUploadSuccess(imageURL: String) {
         //putting data into the variables
         reviewImageURL = imageURL
-        val restaurantName = "Restaurant Test"
+        val restaurantName = restaurant
+        //val restaurantName = "restauranttest"
         val reviewTextInputEditText = findViewById<TextInputEditText>(R.id.textInputEditText)
         val ratingbar = findViewById<RatingBar>(R.id.ratingbar)
         val rating = ratingbar.rating

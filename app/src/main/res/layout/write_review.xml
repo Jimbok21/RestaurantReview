@@ -8,11 +8,21 @@
     android:theme="@style/AppThemeActionBar"
     tools:context=".WriteReviewActivity">
 
+    <com.example.courseworkpcversion.utils.CustomTextView
+        android:id="@+id/selectRestaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Restaurant:"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></com.example.courseworkpcversion.utils.CustomTextView>
+
     <Spinner
         android:id="@+id/dropdownSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
         android:spinnerMode="dropdown"
+        app:layout_constraintStart_toEndOf="@+id/selectRestaurant"
         app:layout_constraintTop_toTopOf="parent">
 
     </Spinner>
@@ -39,40 +49,26 @@
 
     <ImageView
         android:id="@+id/reviewImage"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:foregroundGravity="center"
+        android:onClick="pickReviewPhoto"
         android:src="@drawable/empty_image"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="pickReviewPhoto">
-    </ImageView>
-
-    <TextView
-        android:id="@+id/lemon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="lemon"
-        android:textSize="30dp">
-    </TextView>
-
+        app:layout_constraintTop_toTopOf="parent"></ImageView>
+    
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="uploadImage"
         android:text="SAVE REVIEW"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/dropdownSpinner"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.763" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/reviewImage"
+         />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
