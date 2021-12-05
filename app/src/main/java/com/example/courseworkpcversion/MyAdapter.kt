@@ -1,6 +1,7 @@
 package com.example.courseworkpcversion
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,15 +32,16 @@ class MyAdapter (private val reviewList: MutableList<Review>) : RecyclerView.Ada
         holder.txtMsg.text = review.reviewText
         var floatRating = review.rating
         if (floatRating == null) {
-            floatRating = 0F
+            floatRating = 2F
         }
         val intRating = floatRating.toInt()
-
+        Log.e("float rating: ", floatRating.toString())
 
 
         holder.imgView.setImageResource(R.drawable.ic_password)
         holder.txtMsg.text = review.reviewText
-        holder.reviewBar.rating
+        holder.ratingTxt.text = floatRating.toString()
+        holder.reviewBar.rating = floatRating
 
         holder.itemView.setOnClickListener { v ->
             val intent = Intent(v.context, SelectReviewActivity::class.java)
@@ -63,7 +65,8 @@ class MyAdapter (private val reviewList: MutableList<Review>) : RecyclerView.Ada
 
         var imgView = itemView.findViewById<View>(R.id.icon) as ImageView
         var txtMsg = itemView.findViewById<View>(R.id.reviewTextRecycler) as TextView
-        var reviewBar = itemView.findViewById<View>(R.id.ratingbar) as RatingBar
+        val reviewBar = itemView.findViewById<View>(R.id.ratingbar) as RatingBar
+        var ratingTxt = itemView.findViewById<View>(R.id.ratingTxt) as TextView
 
         init {
             itemView.setOnClickListener(this)

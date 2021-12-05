@@ -28,7 +28,6 @@ import com.example.courseworkpcversion.models.Review
 import com.example.courseworkpcversion.models.User
 import com.example.courseworkpcversion.utils.GlideLoader
 import com.google.firebase.firestore.*
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
 import java.io.IOException
 
@@ -53,9 +52,10 @@ class HomePageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_page)
 
+        //setting up the recycler view of reviews
         recyclerView = findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.setHasFixedSize(true)
+        recyclerView.setHasFixedSize(false)
 
         reviewArrayList = arrayListOf()
 
@@ -63,11 +63,9 @@ class HomePageActivity : AppCompatActivity() {
 
         recyclerView.adapter = myAdapter
 
-        EventChangeListner()
+        eventChangeListner()
 
-        val userId = intent.getStringExtra("user_id")
-        val emailId = intent.getStringExtra("email_id")
-
+        //puts the user details into a shared prefrences so they can be refrenced
         FirestoreClass().getUserDetails(this)
         val sharedPreferences =
             getSharedPreferences(Constants.USER_PREFERENCES, Context.MODE_PRIVATE)
@@ -96,6 +94,7 @@ class HomePageActivity : AppCompatActivity() {
         //setting the bottom navigation bar to change the activity
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
+        //adding functionality of bottom navigation bar
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.map -> {
@@ -110,21 +109,13 @@ class HomePageActivity : AppCompatActivity() {
 
         updateProfilePicture(profilePic)
 
-        //val recyclerView: RecyclerLayout
-/*        val imageModelArrayList = populateList()
-
-        val recyclerView = findViewById<View>(R.id.recycler) as RecyclerView // Bind to the recyclerview in the layout
-        val layoutManager = LinearLayoutManager(this) // Get the layout manager
-        recyclerView.layoutManager = layoutManager
-        val mAdapter = MyAdapter(imageModelArrayList)
-        recyclerView.adapter = mAdapter*/
-
     }
 
-    private fun EventChangeListner() {
+    private fun eventChangeListner() {
 
+        //gets the data of the reviews that the user made and sends them to the adapter
         reviewDb = FirebaseFirestore.getInstance()
-        reviewDb.collection(Constants.REVIEWS)
+        reviewDb.collection(Constants.REVIEWS).whereEqualTo("userId", FirestoreClass().getCurrentUserID())
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
 
@@ -144,22 +135,6 @@ class HomePageActivity : AppCompatActivity() {
                 }
             })
     }
-
-/*    private fun populateList(): ArrayList<MyModel> {
-        val list = ArrayList<MyModel>()
-        val myImageList = arrayOf(R.drawable.ic_map, R.drawable.default_profile_pic, R.drawable.ic_password)
-        val myImageNameList = arrayOf("rest 1", "rest 2", "rest 3")
-        val myRatingsList = arrayOf<FLoat>(1, 1.5, 3)
-
-        for (i in 0..2) {
-            val imageModel = MyModel()
-            imageModel.setNames(myImageNameList[i])
-            imageModel.setImages(myImageList[i])
-            imageModel.setRating(myRatingsList[i])
-            list.add(imageModel)
-        }
-        return list
-    }*/
 
     fun makeNewReview(view: View) {
         if(FirestoreClass().getCurrentUserID() == Constants.GUEST_ID) {

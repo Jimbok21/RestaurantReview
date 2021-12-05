@@ -84,15 +84,15 @@
             android:id="@+id/emailText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email"
-            android:textColorHint="@color/white"
-            android:textColor="@color/white"
             android:background="#50ffffff"
-            android:ems="15"
+            android:backgroundTint="@color/design_default_color_secondary"
             android:drawableStart="@drawable/ic_username"
             android:drawablePadding="10dp"
-            android:backgroundTint="@color/design_default_color_secondary"
-            >
+            android:ems="15"
+            android:hint="@string/email"
+            android:maxLength="50"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white">
 
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
@@ -109,6 +109,7 @@
         android:layout_marginBottom="10dp"
         app:passwordToggleEnabled="true"
         android:drawablePadding="20dp"
+        android:maxLength="30"
         >
 
         <com.google.android.material.textfield.TextInputEditText

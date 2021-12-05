@@ -36,7 +36,7 @@
     <string name="guest">Guest</string>
     <string name="imageSelectionFailed">Image selection failed</string>
     <string name="searching">Searching</string>
-    <string name="reviews">Reviews:</string>
+    <string name="reviews">My Reviews:</string>
     <string name="saveProfilePic">Save Profile Picture</string>
     <string name="SuccessImageUpload">Your profile picture has been successfully updated</string>
 
