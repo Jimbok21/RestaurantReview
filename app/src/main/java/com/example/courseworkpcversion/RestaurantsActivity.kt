@@ -67,7 +67,7 @@ class RestaurantsActivity: AppCompatActivity() {
         bottomNav.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.map -> {
-                    startActivity(Intent(this@RestaurantsActivity, MapsActivity::class.java))
+                    startActivity(Intent(this@RestaurantsActivity, MapsActivity2::class.java))
                 }
                 R.id.home -> {
                     startActivity(Intent(this@RestaurantsActivity, HomePageActivity::class.java))
@@ -116,7 +116,7 @@ class RestaurantsActivity: AppCompatActivity() {
             })
     }
 
-    private fun readRestaurantNames(): Array<String> {
+    fun readRestaurantNames(): Array<String> {
         val restaurantsListTemp = arrayOf<String>(Constants.BOUCHON_DE_ROSSI, Constants.NEW_ICHIBAN, Constants.NANDOS)
         var i: Int = 0
         val db = FirebaseFirestore.getInstance()

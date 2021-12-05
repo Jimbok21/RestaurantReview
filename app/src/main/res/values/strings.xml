@@ -40,6 +40,7 @@
     <string name="reviewUploadSuccess">Your review has been successfully uploaded</string>
     <string name="saveProfilePic">Save Profile Picture</string>
     <string name="SuccessImageUpload">Your profile picture has been successfully updated</string>
+    <string name="title_activity_maps2">MapsActivity2</string>
 
 
 </resources>
