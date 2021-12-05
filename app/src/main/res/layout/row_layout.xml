@@ -24,31 +24,33 @@
         android:layout_alignParentRight="true"
         android:textSize="22sp" />
 
-    <TextView
-        android:id="@+id/ratingTxt"
+    <com.example.courseworkpcversion.utils.CustomTextView
+        android:id="@+id/RestaurantName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ratingbar"
+        android:layout_above="@id/ratingbar"
         android:layout_toRightOf="@id/icon"
-        android:text="rating goes here">
+        android:text="name goes here"
+        android:textSize="25dp">
 
-    </TextView>
+    </com.example.courseworkpcversion.utils.CustomTextView>
 
     <RatingBar
         android:id="@+id/ratingbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/reviewTextRecycler"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="5dp"
         android:layout_toRightOf="@id/icon"
         android:isIndicator="true"
         android:numStars="5"
         android:progressBackgroundTint="@color/teal_700"
         android:progressTint="@color/teal_200"
-        android:rating="2.5"
 
+        android:rating="2.5"
         android:secondaryProgressTint="@color/teal_700"
         android:stepSize="0.5" />
 

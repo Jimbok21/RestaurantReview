@@ -42,7 +42,7 @@ class MyAdapter (private val reviewList: MutableList<Review>) : RecyclerView.Ada
 
         holder.imgView.setImageResource(restaurantImage)
         holder.txtMsg.text = review.reviewText
-        holder.ratingTxt.text = review.restaurantName
+        holder.restaurantNameTxt.text = review.restaurantName
         holder.reviewBar.rating = review.rating
 
         holder.itemView.setOnClickListener { v ->
@@ -68,7 +68,7 @@ class MyAdapter (private val reviewList: MutableList<Review>) : RecyclerView.Ada
         var imgView = itemView.findViewById<View>(R.id.icon) as ImageView
         var txtMsg = itemView.findViewById<View>(R.id.reviewTextRecycler) as TextView
         val reviewBar = itemView.findViewById<View>(R.id.ratingbar) as RatingBar
-        var ratingTxt = itemView.findViewById<View>(R.id.ratingTxt) as TextView
+        var restaurantNameTxt = itemView.findViewById<View>(R.id.RestaurantName) as TextView
 
         init {
             itemView.setOnClickListener(this)
@@ -79,9 +79,3 @@ class MyAdapter (private val reviewList: MutableList<Review>) : RecyclerView.Ada
         }
     }
 }
-
-
-
-
-//var intent = Intent(itemView.context, TeamDetail::class.java)
-//itemView.context.startActivity(intent)

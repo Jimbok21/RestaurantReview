@@ -42,26 +42,31 @@ class MapsActivity: AppCompatActivity() {
         //setting up the toolbar
         val mToolbar = findViewById<Toolbar>(R.id.toolbarMap)
         setSupportActionBar(mToolbar)
-
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_layout, menu)
         return true
     }
+
     fun logout() {
         //logs the user out and takes them back to the sign in page
         FirebaseAuth.getInstance().signOut()
         startActivity(Intent(this@MapsActivity, LoginActivity::class.java))
         finish()
     }
+
+    //implements the toolbar
     override fun onOptionsItemSelected(itemMap: MenuItem): Boolean {
         val myView = findViewById<View>(R.id.toolbarMap)
         when (itemMap.itemId) {
+            //clicking search icon just makes a snackbar saying searching
             R.id.search -> {
                 val snackbar = Snackbar.make(myView, "searching", Snackbar.LENGTH_LONG)
                 snackbar.show()
                 return true
             }
+            //clicking logout logs the user out and takes them to login page
             R.id.logoutToolbar -> {
                 logout()
             }

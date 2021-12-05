@@ -22,7 +22,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.io.IOException
 import android.widget.Spinner
 import android.widget.ArrayAdapter
-import com.example.courseworkpcversion.models.Restaurant
 
 class WriteReviewActivity : AppCompatActivity() {
 
@@ -33,19 +32,15 @@ class WriteReviewActivity : AppCompatActivity() {
 
     private var restaurant: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
-
-
-        readData()
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.write_review)
 
         val spinner = findViewById<Spinner>(R.id.dropdownSpinner)
 
-        val RestaurantsList = readData()
+        val restaurantsList = readData()
 
         val arrayAdapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, RestaurantsList)
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, restaurantsList)
 
         spinner.adapter = arrayAdapter
 
@@ -56,7 +51,7 @@ class WriteReviewActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                restaurant = RestaurantsList[position]
+                restaurant = restaurantsList[position]
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -110,7 +105,8 @@ class WriteReviewActivity : AppCompatActivity() {
         val reviewText = reviewTextInputEditText.text.toString()
         val user = FirestoreClass().getCurrentUserID()
         val image = ""
-            if (rating == 0F) {
+        when {
+            rating == 0F -> {
                 val snackNoRating =
                     Snackbar.make(
                         view,
@@ -124,7 +120,8 @@ class WriteReviewActivity : AppCompatActivity() {
                     )
                 )
                 snackNoRating.show()
-            } else if (restaurantName == "") {
+            }
+            restaurantName == "" -> {
                 val snackNoRating =
                     Snackbar.make(view, getString(R.string.missingRestaurant), Snackbar.LENGTH_LONG)
                 snackNoRating.view.setBackgroundColor(
@@ -134,7 +131,8 @@ class WriteReviewActivity : AppCompatActivity() {
                     )
                 )
                 snackNoRating.show()
-            } else if (reviewText == "") {
+            }
+            reviewText == "" -> {
                 val snackNoRating =
                     Snackbar.make(view, getString(R.string.missingReview), Snackbar.LENGTH_LONG)
                 snackNoRating.view.setBackgroundColor(
@@ -144,9 +142,11 @@ class WriteReviewActivity : AppCompatActivity() {
                     )
                 )
                 snackNoRating.show()
-            } else {
+            }
+            else -> {
                 saveReview(restaurantName, rating, reviewText, user, image)
             }
+        }
         }
 
     fun saveReview(restaurantName: String, rating: Float, reviewText: String, userId: String, image: String) {
@@ -158,8 +158,9 @@ class WriteReviewActivity : AppCompatActivity() {
         review["userId"] = userId
         review["image"] = image
 
-        reviewDb.collection("reviews").add(review).addOnSuccessListener { document ->
-           startActivity(Intent(this@WriteReviewActivity, HomePageActivity::class.java))
+        reviewDb.collection("reviews").add(review).addOnSuccessListener {
+            startActivity(Intent(this@WriteReviewActivity, HomePageActivity::class.java))
+            finish()
         }.addOnFailureListener { e ->
             Log.e(
                 this.javaClass.simpleName,
@@ -217,14 +218,19 @@ class WriteReviewActivity : AppCompatActivity() {
         val user = FirestoreClass().getCurrentUserID()
         //checks that the data is full. had to use toast here because the I could not get the view.
         //This is the only time I use toast in this app
-        if (rating == 0F) {
-            Toast.makeText(this, getString(R.string.missingReviewRating), Toast.LENGTH_LONG).show()
-        } else if (restaurantName == "") {
-            Toast.makeText(this, getString(R.string.missingRestaurant), Toast.LENGTH_LONG).show()
-        } else if (reviewText == "") {
-            Toast.makeText(this, getString(R.string.missingReview), Toast.LENGTH_LONG).show()
-        } else {
-            saveReview(restaurantName, rating, reviewText, user, imageURL)
+        when {
+            rating == 0F -> {
+                Toast.makeText(this, getString(R.string.missingReviewRating), Toast.LENGTH_LONG).show()
+            }
+            restaurantName == "" -> {
+                Toast.makeText(this, getString(R.string.missingRestaurant), Toast.LENGTH_LONG).show()
+            }
+            reviewText == "" -> {
+                Toast.makeText(this, getString(R.string.missingReview), Toast.LENGTH_LONG).show()
+            }
+            else -> {
+                saveReview(restaurantName, rating, reviewText, user, imageURL)
+            }
         }
     }
 }

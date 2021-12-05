@@ -63,7 +63,7 @@ class HomePageActivity : AppCompatActivity() {
 
         recyclerView.adapter = myAdapter
 
-        eventChangeListner()
+        eventChangeListener()
 
         //puts the user details into a shared prefrences so they can be refrenced
         FirestoreClass().getUserDetails(this)
@@ -111,11 +111,11 @@ class HomePageActivity : AppCompatActivity() {
 
     }
 
-    private fun eventChangeListner() {
+    private fun eventChangeListener() {
 
         //gets the data of the reviews that the user made and sends them to the adapter
         reviewDb = FirebaseFirestore.getInstance()
-        reviewDb.collection(Constants.REVIEWS).whereEqualTo("userId", FirestoreClass().getCurrentUserID())
+        reviewDb.collection(Constants.REVIEWS).whereEqualTo(Constants.USER_ID, FirestoreClass().getCurrentUserID())
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
 
