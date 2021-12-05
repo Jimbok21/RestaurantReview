@@ -43,7 +43,8 @@
         android:hint="Write review:"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingbar">
+        app:layout_constraintTop_toBottomOf="@+id/ratingbar"
+        android:maxLength="280">
 
     </com.google.android.material.textfield.TextInputEditText>
 
@@ -56,8 +57,10 @@
         android:src="@drawable/empty_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></ImageView>
+        app:layout_constraintTop_toBottomOf="@+id/textInputEditText"
+        app:layout_constraintVertical_bias="0.223"></ImageView>
 
     <Button
         android:layout_width="wrap_content"
@@ -66,9 +69,10 @@
         android:text="SAVE REVIEW"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reviewImage"
-         />
+        app:layout_constraintVertical_bias="0.367" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

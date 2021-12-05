@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
+import android.view.View
 import com.example.courseworkpcversion.*
 import com.example.courseworkpcversion.models.User
 import com.example.courseworkpcversion.utils.Constants
@@ -85,7 +86,7 @@ class FirestoreClass {
             }
     }
 
-    fun uploadImageToStorage(activity: Activity, imageFileURI: Uri?) {
+    fun uploadImageToStorage(activity: Activity, imageFileURI: Uri?, view: View) {
         var namePrefix = ""
         //setting prefix
         when(activity) {
@@ -114,7 +115,7 @@ class FirestoreClass {
                         activity.imageUploadSuccess(uri.toString())
                     }
                     is WriteReviewActivity -> {
-                        activity.reviewImageUploadSuccess(uri.toString())
+                        activity.reviewImageUploadSuccess(uri.toString(), view)
                     }
                 }
             }

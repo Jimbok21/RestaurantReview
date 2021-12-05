@@ -194,20 +194,20 @@ class HomePageActivity : AppCompatActivity() {
         } else {
             //saves the new profile picture
             if (mSelectedImageFileUri != null) {
-                FirestoreClass().uploadImageToStorage(this, mSelectedImageFileUri)
-                val snackSuccessLogin =
+                FirestoreClass().uploadImageToStorage(this, mSelectedImageFileUri, view)
+                val snackSuccessProfilePicUpdate =
                     Snackbar.make(
                         view,
                         getString(R.string.SuccessImageUpload),
                         Snackbar.LENGTH_LONG
                     )
-                snackSuccessLogin.view.setBackgroundColor(
+                snackSuccessProfilePicUpdate.view.setBackgroundColor(
                     ContextCompat.getColor(
                         this,
                         R.color.ColourSnackbarSuccess
                     )
                 )
-                snackSuccessLogin.show()
+                snackSuccessProfilePicUpdate.show()
             }
         }
     }
