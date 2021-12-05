@@ -92,7 +92,11 @@ class HomePageActivity : AppCompatActivity() {
     }
 
     fun makeNewReview(view: View) {
-        startActivity(Intent(this@HomePageActivity, WriteReviewActivity::class.java))
+        if(FirestoreClass().getCurrentUserID() == Constants.GUEST_ID) {
+            guestError(view)
+        } else {
+            startActivity(Intent(this@HomePageActivity, WriteReviewActivity::class.java))
+        }
     }
 
     fun updateProfilePicture(image: String) {
@@ -111,38 +115,55 @@ class HomePageActivity : AppCompatActivity() {
         finish()
     }
 
+    fun guestError(view: View) {
+        //tells the user to sign in so they can use this feature
+        val snackGuestError =
+            Snackbar.make(view, getString(R.string.SignInToAccess), Snackbar.LENGTH_LONG)
+        snackGuestError.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarError))
+        snackGuestError.show()
+    }
     fun pickProfilePic(view: View) {
-        ////checks if storage permission has been granted to access image files on the phone
-        //will ask you for permission if it does not already have it
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            Constants.showImageChooser(this)
+        //disables this feature if a guest is logged in
+        if(FirestoreClass().getCurrentUserID() == Constants.GUEST_ID) {
+            guestError(view)
         } else {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                Constants.READ_STORAGE_PERMISSION_CODE
-            )
+
+            ////checks if storage permission has been granted to access image files on the phone
+            //will ask you for permission if it does not already have it
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED
+            ) {
+                Constants.showImageChooser(this)
+            } else {
+                ActivityCompat.requestPermissions(
+                    this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    Constants.READ_STORAGE_PERMISSION_CODE
+                )
+            }
         }
     }
 
     fun button(view: View) {
-        //saves the new profile picture
-        if (mSelectedImageFileUri != null) {
-            FirestoreClass().uploadImageToStorage(this, mSelectedImageFileUri)
-            val snackSuccessLogin =
-                Snackbar.make(
-                    view,
-                    getString(R.string.SuccessImageUpload),
-                    Snackbar.LENGTH_LONG
+        if(FirestoreClass().getCurrentUserID() == Constants.GUEST_ID) {
+            guestError(view)
+        } else {
+            //saves the new profile picture
+            if (mSelectedImageFileUri != null) {
+                FirestoreClass().uploadImageToStorage(this, mSelectedImageFileUri)
+                val snackSuccessLogin =
+                    Snackbar.make(
+                        view,
+                        getString(R.string.SuccessImageUpload),
+                        Snackbar.LENGTH_LONG
+                    )
+                snackSuccessLogin.view.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.ColourSnackbarSuccess
+                    )
                 )
-            snackSuccessLogin.view.setBackgroundColor(
-                ContextCompat.getColor(
-                    this,
-                    R.color.ColourSnackbarSuccess
-                )
-            )
-            snackSuccessLogin.show()
+                snackSuccessLogin.show()
+            }
         }
     }
 

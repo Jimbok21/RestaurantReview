@@ -11,6 +11,8 @@
     <string name="email">Email</string>
     <string name="createAccount">Create Account</string>
     <string name="loginGuest">LOG IN AS GUEST</string>
+    <string name="loggingInAsGuest">Logging in as guest</string>
+    <string name="SignInToAccess">Sign in to access this feature</string>
     <string name="login">LOG IN</string>
     <string name="signInLabel">Sign in with:</string>
     <string name="createAccountTxt">Create an Account</string>

@@ -47,6 +47,15 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
+    fun loginGuest(view: View) {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword("guest@guests.com", "guest123")
+            .addOnCompleteListener() { task ->
+                val snackSuccessGuestLogin =
+                    Snackbar.make(view, getString(R.string.loggingInAsGuest), Snackbar.LENGTH_LONG)
+                snackSuccessGuestLogin.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarSuccess))
+                FirestoreClass().getUserDetails(this@LoginActivity)
+            }
+    }
     fun login(view: View) {
         //this gets the data that the user inputted and removes spaces
         val email = findViewById<EditText>(R.id.emailText)
