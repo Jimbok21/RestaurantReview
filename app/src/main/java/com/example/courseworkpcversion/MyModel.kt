@@ -6,6 +6,7 @@ package com.example.courseworkpcversion
 class MyModel {
     var modelName: String? = null
     private var modelImage: Int = 0
+    var modelRating: Int = 0
 
     /*
      * Return the team name
@@ -31,5 +32,13 @@ class MyModel {
      */
     fun setImages(image_drawable: Int) {
         this.modelImage = image_drawable
+    }
+
+    fun setRating(rating: Int) {
+        this.modelRating = rating
+    }
+
+    fun getRating(): Int {
+        return modelRating
     }
 }

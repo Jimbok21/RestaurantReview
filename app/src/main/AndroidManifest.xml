@@ -52,6 +52,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             >
         </activity>
+        <activity
+            android:name=".SelectReviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
+        </activity>
     </application>
 
 </manifest>

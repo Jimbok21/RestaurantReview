@@ -26,7 +26,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.courseworkpcversion.models.User
 import com.example.courseworkpcversion.utils.GlideLoader
-import com.example.courseworkpcversion.MyModel
 import kotlinx.coroutines.*
 import java.io.IOException
 
@@ -105,11 +104,13 @@ class HomePageActivity : AppCompatActivity() {
         val list = ArrayList<MyModel>()
         val myImageList = arrayOf(R.drawable.ic_map, R.drawable.default_profile_pic, R.drawable.ic_password)
         val myImageNameList = arrayOf("rest 1", "rest 2", "rest 3")
+        val myRatingsList = arrayOf(1, 2, 3)
 
         for (i in 0..2) {
             val imageModel = MyModel()
             imageModel.setNames(myImageNameList[i])
             imageModel.setImages(myImageList[i])
+            imageModel.setRating(myRatingsList[i])
             list.add(imageModel)
         }
         return list

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="70dp"
+    android:layout_height="wrap_content"
     android:padding="6dip"
     android:background="@drawable/selector"
     android:clickable="true"
@@ -10,20 +10,32 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/icon"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginRight="6dip"
         android:src="@mipmap/ic_launcher" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/firstLine"
+        android:id="@+id/reviewTextRecycler"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/icon"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/icon"
         android:textSize="22sp" />
+
+    <RatingBar
+        android:id="@+id/ratingbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="0.5"
+        android:layout_margin="8dp"
+        android:isIndicator="true"
+        android:layout_toRightOf="@id/icon"
+        android:progressBackgroundTint="@color/teal_700"
+        android:progressTint="@color/teal_700"
+        android:secondaryProgressTint="@color/teal_700"
+        />
 
 </RelativeLayout>

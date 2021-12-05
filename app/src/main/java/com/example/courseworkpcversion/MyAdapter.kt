@@ -1,13 +1,13 @@
 package com.example.courseworkpcversion
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.courseworkpcversion.MyModel
-import com.google.android.material.snackbar.Snackbar
 
 class MyAdapter (private val imageModelArrayList: MutableList<MyModel>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
@@ -29,6 +29,12 @@ class MyAdapter (private val imageModelArrayList: MutableList<MyModel>) : Recycl
 
         holder.imgView.setImageResource(info.getImages())
         holder.txtMsg.text = info.getNames()
+        holder.reviewBar.numStars = info.getRating()
+
+        holder.itemView.setOnClickListener { v ->
+            val intent = Intent(v.context, SelectReviewActivity::class.java)
+            v.context.startActivity(intent)
+        }
     }
 
     /*
@@ -38,22 +44,23 @@ class MyAdapter (private val imageModelArrayList: MutableList<MyModel>) : Recycl
         return imageModelArrayList.size
     }
 
+
+
     /*
      * The parent class that handles layout inflation and child view use
      */
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
 
         var imgView = itemView.findViewById<View>(R.id.icon) as ImageView
-        var txtMsg = itemView.findViewById<View>(R.id.firstLine) as TextView
+        var txtMsg = itemView.findViewById<View>(R.id.reviewTextRecycler) as TextView
+        var reviewBar = itemView.findViewById<View>(R.id.ratingbar) as RatingBar
 
         init {
             itemView.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {
-            val msg = txtMsg.text
-            val snackbar = Snackbar.make(v, "$msg" + "is the best", Snackbar.LENGTH_LONG)
-            snackbar.show()
+
         }
     }
 }
