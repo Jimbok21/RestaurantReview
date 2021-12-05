@@ -22,8 +22,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.courseworkpcversion.models.User
 import com.example.courseworkpcversion.utils.GlideLoader
+import com.example.courseworkpcversion.MyModel
 import kotlinx.coroutines.*
 import java.io.IOException
 
@@ -88,7 +91,28 @@ class HomePageActivity : AppCompatActivity() {
         updateProfilePicture(profilePic)
 
         //val recyclerView: RecyclerLayout
+        val imageModelArrayList = populateList()
 
+        val recyclerView = findViewById<View>(R.id.recycler) as RecyclerView // Bind to the recyclerview in the layout
+        val layoutManager = LinearLayoutManager(this) // Get the layout manager
+        recyclerView.layoutManager = layoutManager
+        val mAdapter = MyAdapter(imageModelArrayList)
+        recyclerView.adapter = mAdapter
+
+    }
+
+    private fun populateList(): ArrayList<MyModel> {
+        val list = ArrayList<MyModel>()
+        val myImageList = arrayOf(R.drawable.ic_map, R.drawable.default_profile_pic, R.drawable.ic_password)
+        val myImageNameList = arrayOf("rest 1", "rest 2", "rest 3")
+
+        for (i in 0..2) {
+            val imageModel = MyModel()
+            imageModel.setNames(myImageNameList[i])
+            imageModel.setImages(myImageList[i])
+            list.add(imageModel)
+        }
+        return list
     }
 
     fun makeNewReview(view: View) {
