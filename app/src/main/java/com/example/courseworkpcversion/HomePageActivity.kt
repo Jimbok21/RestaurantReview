@@ -130,7 +130,6 @@ class HomePageActivity : AppCompatActivity() {
                             reviewArrayList.add(dc.document.toObject(Review::class.java))
                         }
                     }
-
                     myAdapter.notifyDataSetChanged()
                 }
             })
@@ -194,7 +193,7 @@ class HomePageActivity : AppCompatActivity() {
         } else {
             //saves the new profile picture
             if (mSelectedImageFileUri != null) {
-                FirestoreClass().uploadImageToStorage(this, mSelectedImageFileUri, view)
+                FirestoreClass().uploadImageToStorage(this, mSelectedImageFileUri)
                 val snackSuccessProfilePicUpdate =
                     Snackbar.make(
                         view,

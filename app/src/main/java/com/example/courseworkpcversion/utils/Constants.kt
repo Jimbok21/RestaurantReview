@@ -10,6 +10,10 @@ import java.net.URI
 object Constants {
     const val USERS: String = "users"
     const val REVIEWS: String = "reviews"
+    const val RESTAURANTS: String = "restaurants"
+    const val BOUCHON_DE_ROSSI: String = "Bouchon De Rossi"
+    const val NEW_ICHIBAN: String = "New Ichiban"
+    const val NANDOS: String = "Nandos"
     const val LOGGED_IN_USERNAME: String = "logged_in_username"
     const val LOGGED_IN_USER_IMAGE: String = "logged_in_profile_pic"
     const val DEFAULT_PROFILE_PIC: String = "https://firebasestorage.googleapis.com/v0/b/restaurantreviewer-12cf2.appspot.com/o/default_profile_pic.jpg?alt=media&token=f92aa759-5e4c-4fe9-a282-4754bda5cb1e"

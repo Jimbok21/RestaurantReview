@@ -86,7 +86,7 @@ class FirestoreClass {
             }
     }
 
-    fun uploadImageToStorage(activity: Activity, imageFileURI: Uri?, view: View) {
+    fun uploadImageToStorage(activity: Activity, imageFileURI: Uri?) {
         var namePrefix = ""
         //setting prefix
         when(activity) {
@@ -115,7 +115,7 @@ class FirestoreClass {
                         activity.imageUploadSuccess(uri.toString())
                     }
                     is WriteReviewActivity -> {
-                        activity.reviewImageUploadSuccess(uri.toString(), view)
+                        activity.reviewImageUploadSuccess(uri.toString())
                     }
                 }
             }

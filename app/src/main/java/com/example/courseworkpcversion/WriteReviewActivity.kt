@@ -20,7 +20,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.FirebaseFirestore
 import java.io.IOException
-
+import android.widget.Spinner
+import android.widget.ArrayAdapter
+import com.example.courseworkpcversion.models.Restaurant
 
 class WriteReviewActivity : AppCompatActivity() {
 
@@ -31,14 +33,20 @@ class WriteReviewActivity : AppCompatActivity() {
 
     private var restaurant: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+        readData()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.write_review)
 
         val spinner = findViewById<Spinner>(R.id.dropdownSpinner)
 
-        val RestaurantsList = arrayOf("Restaurtant 1", "Restaurant 2", "Restaurant 3")
+        val RestaurantsList = readData()
 
-        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, RestaurantsList)
+        val arrayAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, RestaurantsList)
+
         spinner.adapter = arrayAdapter
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -52,10 +60,26 @@ class WriteReviewActivity : AppCompatActivity() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
             }
 
         }
+    }
+
+    private fun readData(): Array<String> {
+        val restaurantsListTemp = arrayOf<String>(Constants.BOUCHON_DE_ROSSI, Constants.NEW_ICHIBAN, Constants.NANDOS)
+        var i: Int = 0
+        val db = FirebaseFirestore.getInstance()
+        db.collection(Constants.RESTAURANTS).get().addOnCompleteListener { task ->
+            if(task.isSuccessful) {
+
+                for (document in task.result!!) {
+                    val name = document.data["name"].toString()
+                    restaurantsListTemp[i] = name
+                    i++
+                }
+            }
+        }
+        return restaurantsListTemp
     }
 
     fun pickReviewPhoto(view: View) {
@@ -121,11 +145,11 @@ class WriteReviewActivity : AppCompatActivity() {
                 )
                 snackNoRating.show()
             } else {
-                saveReview(restaurantName, rating, reviewText, user, image, view)
+                saveReview(restaurantName, rating, reviewText, user, image)
             }
         }
 
-    fun saveReview(restaurantName: String, rating: Float, reviewText: String, userId: String, image: String, view: View) {
+    fun saveReview(restaurantName: String, rating: Float, reviewText: String, userId: String, image: String) {
         val reviewDb = FirebaseFirestore.getInstance()
         val review: MutableMap<String, Any> = HashMap()
         review["restaurantName"] = restaurantName
@@ -133,37 +157,20 @@ class WriteReviewActivity : AppCompatActivity() {
         review["reviewText"] = reviewText
         review["userId"] = userId
         review["image"] = image
-        val snackSuccessReviewUpload =
-            Snackbar.make(
-                view,
-                getString(R.string.reviewUploadSuccess),
-                Snackbar.LENGTH_LONG
-            )
-        snackSuccessReviewUpload.view.setBackgroundColor(
-            ContextCompat.getColor(
-                this,
-                R.color.ColourSnackbarSuccess
-            )
-        )
-        if (reviewSelectedImageFileUri != null) {
-            FirestoreClass().uploadImageToStorage(this, reviewSelectedImageFileUri, view)
 
-            reviewDb.collection("reviews").add(review).addOnSuccessListener { document ->
-                snackSuccessReviewUpload.show()
-                startActivity(Intent(this@WriteReviewActivity, HomePageActivity::class.java))
-            }.addOnFailureListener { e ->
-                Log.e(
-                    this.javaClass.simpleName,
-                    "Registering the user failed", e
-                )
-            }
+        reviewDb.collection("reviews").add(review).addOnSuccessListener { document ->
+           startActivity(Intent(this@WriteReviewActivity, HomePageActivity::class.java))
+        }.addOnFailureListener { e ->
+            Log.e(
+                this.javaClass.simpleName,
+                "Registering the user failed", e)
         }
     }
 
     fun uploadImage(view: View) {
         //saves the new review picture to the cloud storage
         if (reviewSelectedImageFileUri != null) {
-            FirestoreClass().uploadImageToStorage(this, reviewSelectedImageFileUri, view)
+            FirestoreClass().uploadImageToStorage(this, reviewSelectedImageFileUri)
         } else {
             saveReviewHandler(view)
         }
@@ -199,17 +206,15 @@ class WriteReviewActivity : AppCompatActivity() {
         }
     }
 
-    fun reviewImageUploadSuccess(imageURL: String, view: View) {
+    fun reviewImageUploadSuccess(imageURL: String) {
         //putting data into the variables
         reviewImageURL = imageURL
         val restaurantName = restaurant
-        //val restaurantName = "restauranttest"
         val reviewTextInputEditText = findViewById<TextInputEditText>(R.id.textInputEditText)
         val ratingbar = findViewById<RatingBar>(R.id.ratingbar)
         val rating = ratingbar.rating
         val reviewText = reviewTextInputEditText.text.toString()
         val user = FirestoreClass().getCurrentUserID()
-        val image = imageURL
         //checks that the data is full. had to use toast here because the I could not get the view.
         //This is the only time I use toast in this app
         if (rating == 0F) {
@@ -219,7 +224,7 @@ class WriteReviewActivity : AppCompatActivity() {
         } else if (reviewText == "") {
             Toast.makeText(this, getString(R.string.missingReview), Toast.LENGTH_LONG).show()
         } else {
-            saveReview(restaurantName, rating, reviewText, user, image, view)
+            saveReview(restaurantName, rating, reviewText, user, imageURL)
         }
     }
 }

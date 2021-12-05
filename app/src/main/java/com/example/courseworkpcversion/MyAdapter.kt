@@ -1,7 +1,6 @@
 package com.example.courseworkpcversion
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,18 +29,21 @@ class MyAdapter (private val reviewList: MutableList<Review>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val review: Review = reviewList[position]
         holder.txtMsg.text = review.reviewText
-        var floatRating = review.rating
-        if (floatRating == null) {
-            floatRating = 2F
+        var restaurant = review.restaurantName
+        var restaurantImage = R.drawable.ic_restaurant
+        if (restaurant == "Bouchon De Rossi") {
+            restaurantImage = R.drawable.bouchon_de_rossi_image
+        } else if (restaurant == "New Ichiban") {
+            restaurantImage = R.drawable.new_ichiban_image
+        } else if (restaurant == "Nandos") {
+            restaurantImage = R.drawable.nandos_image
         }
-        val intRating = floatRating.toInt()
-        Log.e("float rating: ", floatRating.toString())
 
 
-        holder.imgView.setImageResource(R.drawable.ic_password)
+        holder.imgView.setImageResource(restaurantImage)
         holder.txtMsg.text = review.reviewText
-        holder.ratingTxt.text = floatRating.toString()
-        holder.reviewBar.rating = floatRating
+        holder.ratingTxt.text = review.restaurantName
+        holder.reviewBar.rating = review.rating
 
         holder.itemView.setOnClickListener { v ->
             val intent = Intent(v.context, SelectReviewActivity::class.java)
