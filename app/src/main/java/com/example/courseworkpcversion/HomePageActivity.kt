@@ -24,8 +24,11 @@ import com.google.firebase.auth.FirebaseAuth
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.courseworkpcversion.models.Review
 import com.example.courseworkpcversion.models.User
 import com.example.courseworkpcversion.utils.GlideLoader
+import com.google.firebase.firestore.*
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
 import java.io.IOException
 
@@ -40,9 +43,27 @@ class HomePageActivity : AppCompatActivity() {
     //the image on the cloud storage
     private var mUserProfileImageURL: String = ""
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var reviewArrayList : ArrayList<Review>
+    private lateinit var myAdapter: MyAdapter
+    private lateinit var reviewDb : FirebaseFirestore
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_page)
+
+        recyclerView = findViewById(R.id.recycler)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(true)
+
+        reviewArrayList = arrayListOf()
+
+        myAdapter = MyAdapter(reviewArrayList)
+
+        recyclerView.adapter = myAdapter
+
+        EventChangeListner()
 
         val userId = intent.getStringExtra("user_id")
         val emailId = intent.getStringExtra("email_id")
@@ -90,21 +111,45 @@ class HomePageActivity : AppCompatActivity() {
         updateProfilePicture(profilePic)
 
         //val recyclerView: RecyclerLayout
-        val imageModelArrayList = populateList()
+/*        val imageModelArrayList = populateList()
 
         val recyclerView = findViewById<View>(R.id.recycler) as RecyclerView // Bind to the recyclerview in the layout
         val layoutManager = LinearLayoutManager(this) // Get the layout manager
         recyclerView.layoutManager = layoutManager
         val mAdapter = MyAdapter(imageModelArrayList)
-        recyclerView.adapter = mAdapter
+        recyclerView.adapter = mAdapter*/
 
     }
 
-    private fun populateList(): ArrayList<MyModel> {
+    private fun EventChangeListner() {
+
+        reviewDb = FirebaseFirestore.getInstance()
+        reviewDb.collection(Constants.REVIEWS)
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+
+                    if (error != null) {
+                        Log.e("Firestore Error", error.message.toString())
+                        return
+                    }
+
+                    for(dc : DocumentChange in value?.documentChanges!!) {
+
+                        if(dc.type == DocumentChange.Type.ADDED) {
+                            reviewArrayList.add(dc.document.toObject(Review::class.java))
+                        }
+                    }
+
+                    myAdapter.notifyDataSetChanged()
+                }
+            })
+    }
+
+/*    private fun populateList(): ArrayList<MyModel> {
         val list = ArrayList<MyModel>()
         val myImageList = arrayOf(R.drawable.ic_map, R.drawable.default_profile_pic, R.drawable.ic_password)
         val myImageNameList = arrayOf("rest 1", "rest 2", "rest 3")
-        val myRatingsList = arrayOf(1, 2, 3)
+        val myRatingsList = arrayOf<FLoat>(1, 1.5, 3)
 
         for (i in 0..2) {
             val imageModel = MyModel()
@@ -114,7 +159,7 @@ class HomePageActivity : AppCompatActivity() {
             list.add(imageModel)
         }
         return list
-    }
+    }*/
 
     fun makeNewReview(view: View) {
         if(FirestoreClass().getCurrentUserID() == Constants.GUEST_ID) {

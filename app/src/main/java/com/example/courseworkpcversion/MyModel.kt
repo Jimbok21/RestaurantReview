@@ -6,7 +6,7 @@ package com.example.courseworkpcversion
 class MyModel {
     var modelName: String? = null
     private var modelImage: Int = 0
-    var modelRating: Int = 0
+    var modelRating: Float = 0F
 
     /*
      * Return the team name
@@ -34,11 +34,11 @@ class MyModel {
         this.modelImage = image_drawable
     }
 
-    fun setRating(rating: Int) {
+    fun setRating(rating: Float) {
         this.modelRating = rating
     }
 
-    fun getRating(): Int {
+    fun getRating(): Float {
         return modelRating
     }
 }

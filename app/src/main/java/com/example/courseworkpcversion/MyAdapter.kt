@@ -8,8 +8,10 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.courseworkpcversion.models.Review
 
-class MyAdapter (private val imageModelArrayList: MutableList<MyModel>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+class MyAdapter (private val reviewList: MutableList<Review>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+
 
     /*
      * Inflate our views using the layout defined in row_layout.xml
@@ -25,11 +27,19 @@ class MyAdapter (private val imageModelArrayList: MutableList<MyModel>) : Recycl
      * Bind the data to the child views of the ViewHolder
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val info = imageModelArrayList[position]
+        val review: Review = reviewList[position]
+        holder.txtMsg.text = review.reviewText
+        var floatRating = review.rating
+        if (floatRating == null) {
+            floatRating = 0F
+        }
+        val intRating = floatRating.toInt()
 
-        holder.imgView.setImageResource(info.getImages())
-        holder.txtMsg.text = info.getNames()
-        holder.reviewBar.numStars = info.getRating()
+
+
+        holder.imgView.setImageResource(R.drawable.ic_password)
+        holder.txtMsg.text = review.reviewText
+        holder.reviewBar.rating
 
         holder.itemView.setOnClickListener { v ->
             val intent = Intent(v.context, SelectReviewActivity::class.java)
@@ -41,7 +51,7 @@ class MyAdapter (private val imageModelArrayList: MutableList<MyModel>) : Recycl
      * Get the maximum size of the
      */
     override fun getItemCount(): Int {
-        return imageModelArrayList.size
+        return reviewList.size
     }
 
 
