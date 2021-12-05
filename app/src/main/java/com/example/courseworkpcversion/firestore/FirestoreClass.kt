@@ -87,6 +87,7 @@ class FirestoreClass {
 
     fun uploadImageToStorage(activity: Activity, imageFileURI: Uri?) {
         var namePrefix = ""
+        //setting prefix
         when(activity) {
             is HomePageActivity -> {
                 namePrefix = Constants.USER_PROFILE_IMAGE
@@ -95,6 +96,7 @@ class FirestoreClass {
                 namePrefix = Constants.REVIEW_IMAGE
             }
         }
+        //adds the image to the storage with the correct prefix based on what the image is used for
         val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(
             namePrefix + System.currentTimeMillis() + "."
                     + Constants.getFileExtension(activity, imageFileURI)

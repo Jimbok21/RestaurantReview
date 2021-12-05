@@ -170,7 +170,7 @@ class WriteReviewActivity : AppCompatActivity() {
     }
 
     fun uploadImage(view: View) {
-        //saves the new profile picture
+        //saves the new review picture to the cloud storage
         if (reviewSelectedImageFileUri != null) {
             FirestoreClass().uploadImageToStorage(this, reviewSelectedImageFileUri)
             val snackSuccessLogin =
@@ -192,7 +192,7 @@ class WriteReviewActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        //sets the profile picture to the file selected locally
+        //sets the review picture to the file selected locally
         super.onActivityResult(requestCode, resultCode, data)
         val reviewImageView = findViewById<ImageView>(R.id.reviewImage)
         if (resultCode == Activity.RESULT_OK) {
@@ -222,6 +222,7 @@ class WriteReviewActivity : AppCompatActivity() {
     }
 
     fun reviewImageUploadSuccess(imageURL: String) {
+        //putting data into the variables
         reviewImageURL = imageURL
         val restaurantName = "Restaurant Test"
         val reviewTextInputEditText = findViewById<TextInputEditText>(R.id.textInputEditText)
@@ -230,40 +231,14 @@ class WriteReviewActivity : AppCompatActivity() {
         val reviewText = reviewTextInputEditText.text.toString()
         val user = FirestoreClass().getCurrentUserID()
         val image = imageURL
+        //checks that the data is full. had to use toast here because the I could not get the view.
+        //This is the only time I use toast in this app
         if (rating == 0F) {
-            val snackNoRating =
-                Snackbar.make(
-                    view,
-                    getString(R.string.missingReviewRating),
-                    Snackbar.LENGTH_LONG
-                )
-            snackNoRating.view.setBackgroundColor(
-                ContextCompat.getColor(
-                    this@WriteReviewActivity,
-                    R.color.ColourSnackbarError
-                )
-            )
-            snackNoRating.show()
+            Toast.makeText(this, getString(R.string.missingReviewRating), Toast.LENGTH_LONG).show()
         } else if (restaurantName == "") {
-            val snackNoRating =
-                Snackbar.make(view, getString(R.string.missingRestaurant), Snackbar.LENGTH_LONG)
-            snackNoRating.view.setBackgroundColor(
-                ContextCompat.getColor(
-                    this@WriteReviewActivity,
-                    R.color.ColourSnackbarError
-                )
-            )
-            snackNoRating.show()
+            Toast.makeText(this, getString(R.string.missingRestaurant), Toast.LENGTH_LONG).show()
         } else if (reviewText == "") {
-            val snackNoRating =
-                Snackbar.make(view, getString(R.string.missingReview), Snackbar.LENGTH_LONG)
-            snackNoRating.view.setBackgroundColor(
-                ContextCompat.getColor(
-                    this@WriteReviewActivity,
-                    R.color.ColourSnackbarError
-                )
-            )
-            snackNoRating.show()
+            Toast.makeText(this, getString(R.string.missingReview), Toast.LENGTH_LONG).show()
         } else {
             saveReview(restaurantName, rating, reviewText, user, image)
         }
