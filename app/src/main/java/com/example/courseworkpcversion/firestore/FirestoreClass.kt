@@ -111,6 +111,9 @@ class FirestoreClass {
                     is HomePageActivity -> {
                         activity.imageUploadSuccess(uri.toString())
                     }
+                    is WriteReviewActivity -> {
+                        activity.reviewImageUploadSuccess(uri.toString())
+                    }
                 }
             }
 

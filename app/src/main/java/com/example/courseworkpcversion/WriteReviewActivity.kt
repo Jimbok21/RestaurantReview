@@ -24,7 +24,10 @@ import java.io.IOException
 
 class WriteReviewActivity : AppCompatActivity() {
 
+    //image on the device
     private var reviewSelectedImageFileUri: Uri? = null
+    //image on the cloud storage
+    private var reviewImageURL: String = ""
 
     lateinit var spinnerSelected : Spinner
     lateinit var result: TextView
@@ -56,6 +59,31 @@ class WriteReviewActivity : AppCompatActivity() {
         }
     }
 
+    fun readReviews() {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("reviews").get().addOnCompleteListener{
+            var result:StringBuffer = StringBuffer()
+
+            if(it.isSuccessful) {
+                for(document in it.result!!) {
+                    result.append(document.data.getValue("restaurant")).append(" ")
+                        .append(document.data.getValue("rating")).append(" ")
+                        .append(document.data.getValue("reviewText")).append(" ")
+                        .append(document.data.getValue("userId")).append(" ")
+                        .append(document.data.getValue("image")).append(" ")
+                }
+            }
+        }
+    }
+
+
+    fun updateImage(image: String) {
+        var uriImage: Uri = Uri.parse(image)
+        val reviewImage = findViewById<ImageView>(R.id.reviewImage)
+
+        GlideLoader(this@WriteReviewActivity).loadUserPicture(uriImage, reviewImage)
+    }
+
     fun pickReviewPhoto(view: View) {
         ////checks if storage permission has been granted to access image files on the phone
         //will ask you for permission if it does not already have it
@@ -75,50 +103,53 @@ class WriteReviewActivity : AppCompatActivity() {
         }
     }
 
-    fun saveReviewButtonClicked(view: View) {
+
+    fun saveReviewHandler(view: View) {
         val restaurantName = "Restaurant Test"
         val reviewTextInputEditText = findViewById<TextInputEditText>(R.id.textInputEditText)
         val ratingbar = findViewById<RatingBar>(R.id.ratingbar)
         val rating = ratingbar.rating
         val reviewText = reviewTextInputEditText.text.toString()
         val user = FirestoreClass().getCurrentUserID()
-        val image = reviewSelectedImageFileUri.toString()
-
-        if (rating == 0F) {
-            val snackNoRating =
-                Snackbar.make(view, getString(R.string.missingReviewRating), Snackbar.LENGTH_LONG)
-            snackNoRating.view.setBackgroundColor(
-                ContextCompat.getColor(
-                    this@WriteReviewActivity,
-                    R.color.ColourSnackbarError
+        val image = ""
+            if (rating == 0F) {
+                val snackNoRating =
+                    Snackbar.make(
+                        view,
+                        getString(R.string.missingReviewRating),
+                        Snackbar.LENGTH_LONG
+                    )
+                snackNoRating.view.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this@WriteReviewActivity,
+                        R.color.ColourSnackbarError
+                    )
                 )
-            )
-            snackNoRating.show()
-        } else if(restaurantName == "") {
-            val snackNoRating =
-                Snackbar.make(view, getString(R.string.missingRestaurant), Snackbar.LENGTH_LONG)
-            snackNoRating.view.setBackgroundColor(
-                ContextCompat.getColor(
-                    this@WriteReviewActivity,
-                    R.color.ColourSnackbarError
+                snackNoRating.show()
+            } else if (restaurantName == "") {
+                val snackNoRating =
+                    Snackbar.make(view, getString(R.string.missingRestaurant), Snackbar.LENGTH_LONG)
+                snackNoRating.view.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this@WriteReviewActivity,
+                        R.color.ColourSnackbarError
+                    )
                 )
-            )
-            snackNoRating.show()
-        } else if(reviewText == "") {
-            val snackNoRating =
-                Snackbar.make(view, getString(R.string.missingReview), Snackbar.LENGTH_LONG)
-            snackNoRating.view.setBackgroundColor(
-                ContextCompat.getColor(
-                    this@WriteReviewActivity,
-                    R.color.ColourSnackbarError
+                snackNoRating.show()
+            } else if (reviewText == "") {
+                val snackNoRating =
+                    Snackbar.make(view, getString(R.string.missingReview), Snackbar.LENGTH_LONG)
+                snackNoRating.view.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this@WriteReviewActivity,
+                        R.color.ColourSnackbarError
+                    )
                 )
-            )
-            snackNoRating.show()
-        } else {
-            saveReview(restaurantName, rating, reviewText, user, image)
+                snackNoRating.show()
+            } else {
+                saveReview(restaurantName, rating, reviewText, user, image)
+            }
         }
-        uploadImage(view)
-    }
 
     fun saveReview(restaurantName: String, rating: Float, reviewText: String, userId: String, image: String) {
         val reviewDb = FirebaseFirestore.getInstance()
@@ -130,7 +161,7 @@ class WriteReviewActivity : AppCompatActivity() {
         review["image"] = image
 
         reviewDb.collection("reviews").add(review).addOnSuccessListener { document ->
-            //startActivity(Intent(this@WriteReview, HomePageActivity::class.java))
+           // startActivity(Intent(this@WriteReviewActivity, HomePageActivity::class.java))
         }.addOnFailureListener { e ->
             Log.e(
                 this.javaClass.simpleName,
@@ -155,6 +186,8 @@ class WriteReviewActivity : AppCompatActivity() {
                 )
             )
             snackSuccessLogin.show()
+        } else {
+            saveReviewHandler(view)
         }
     }
 
@@ -185,6 +218,54 @@ class WriteReviewActivity : AppCompatActivity() {
                         snackError.show()
                     }
                 }
+        }
+    }
+
+    fun reviewImageUploadSuccess(imageURL: String) {
+        reviewImageURL = imageURL
+        val restaurantName = "Restaurant Test"
+        val reviewTextInputEditText = findViewById<TextInputEditText>(R.id.textInputEditText)
+        val ratingbar = findViewById<RatingBar>(R.id.ratingbar)
+        val rating = ratingbar.rating
+        val reviewText = reviewTextInputEditText.text.toString()
+        val user = FirestoreClass().getCurrentUserID()
+        val image = imageURL
+        if (rating == 0F) {
+            val snackNoRating =
+                Snackbar.make(
+                    view,
+                    getString(R.string.missingReviewRating),
+                    Snackbar.LENGTH_LONG
+                )
+            snackNoRating.view.setBackgroundColor(
+                ContextCompat.getColor(
+                    this@WriteReviewActivity,
+                    R.color.ColourSnackbarError
+                )
+            )
+            snackNoRating.show()
+        } else if (restaurantName == "") {
+            val snackNoRating =
+                Snackbar.make(view, getString(R.string.missingRestaurant), Snackbar.LENGTH_LONG)
+            snackNoRating.view.setBackgroundColor(
+                ContextCompat.getColor(
+                    this@WriteReviewActivity,
+                    R.color.ColourSnackbarError
+                )
+            )
+            snackNoRating.show()
+        } else if (reviewText == "") {
+            val snackNoRating =
+                Snackbar.make(view, getString(R.string.missingReview), Snackbar.LENGTH_LONG)
+            snackNoRating.view.setBackgroundColor(
+                ContextCompat.getColor(
+                    this@WriteReviewActivity,
+                    R.color.ColourSnackbarError
+                )
+            )
+            snackNoRating.show()
+        } else {
+            saveReview(restaurantName, rating, reviewText, user, image)
         }
     }
 }
