@@ -1,8 +1,5 @@
 package com.example.courseworkpcversion.models
 
-import android.location.Location
-import com.google.firebase.firestore.GeoPoint
-
-class Restaurant(val restaurantName: String = "", val location: GeoPoint? = null) {
+class Restaurant(val restaurantName: String = "", val longitude: Double = 0.0, val latitude: Double = 0.0) {
 
 }

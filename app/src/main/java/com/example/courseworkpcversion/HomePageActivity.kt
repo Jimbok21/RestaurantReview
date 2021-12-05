@@ -81,7 +81,6 @@ class HomePageActivity : AppCompatActivity() {
             profilePic = Constants.DEFAULT_PROFILE_PIC
         }
 
-
         //sets the username text
         val userText: TextView = findViewById(R.id.username)
         userText.text = username

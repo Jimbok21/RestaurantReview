@@ -67,7 +67,7 @@ class RestaurantsActivity: AppCompatActivity() {
         bottomNav.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.map -> {
-                    startActivity(Intent(this@RestaurantsActivity, MapsActivity2::class.java))
+                    startActivity(Intent(this@RestaurantsActivity, MapsActivity::class.java))
                 }
                 R.id.home -> {
                     startActivity(Intent(this@RestaurantsActivity, HomePageActivity::class.java))
@@ -117,20 +117,47 @@ class RestaurantsActivity: AppCompatActivity() {
     }
 
     fun readRestaurantNames(): Array<String> {
-        val restaurantsListTemp = arrayOf<String>(Constants.BOUCHON_DE_ROSSI, Constants.NEW_ICHIBAN, Constants.NANDOS)
+        val restaurantsListTemp = arrayOf(Constants.BOUCHON_DE_ROSSI, Constants.NEW_ICHIBAN, Constants.NANDOS)
         var i: Int = 0
         val db = FirebaseFirestore.getInstance()
         db.collection(Constants.RESTAURANTS).get().addOnCompleteListener { task ->
             if(task.isSuccessful) {
 
                 for (document in task.result!!) {
-                    val name = document.data["name"].toString()
+                    val name = document.data[Constants.NAME].toString()
                     restaurantsListTemp[i] = name
                     i++
                 }
             }
         }
+
         return restaurantsListTemp
+    }
+
+    fun ReadRestaurantLongLat(int: Int): Array<Double> {
+        //gets the longitude and latitude of the restaurant.
+        //the first number is the first restaurant longitude, the second is the latitude
+        //the third number is the second restaurant longitude, the fourth is the latitude and so on
+        val restaurantsLongLat = arrayOf(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        var i: Int = int
+        val db = FirebaseFirestore.getInstance()
+        db.collection(Constants.RESTAURANTS).get().addOnCompleteListener { task ->
+                for (document in task.result!!) {
+                    val longitude: Double = document.data[Constants.LONGITUDE] as Double
+                    val latitude: Double = document.data[Constants.LATITUDE] as Double
+                    restaurantsLongLat[i] = longitude
+                    restaurantsLongLat[i+1] = latitude
+                    i += 2
+            }
+            for(i in 0..5) {
+                Log.e("2 above return longitude/lat: ", restaurantsLongLat[i].toString())
+            }
+        }
+
+        if (i < 4) {
+            ReadRestaurantLongLat(i)
+        }
+        return restaurantsLongLat
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
