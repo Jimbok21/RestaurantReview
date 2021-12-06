@@ -158,7 +158,7 @@ class WriteReviewActivity : AppCompatActivity() {
         review["userId"] = userId
         review["image"] = image
 
-        reviewDb.collection("reviews").add(review).addOnSuccessListener {
+        reviewDb.collection(Constants.REVIEWS).add(review).addOnSuccessListener {
             startActivity(Intent(this@WriteReviewActivity, HomePageActivity::class.java))
             finish()
         }.addOnFailureListener { e ->

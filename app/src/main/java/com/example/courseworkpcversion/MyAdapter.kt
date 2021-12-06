@@ -1,12 +1,14 @@
 package com.example.courseworkpcversion
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.courseworkpcversion.models.Review
 import com.example.courseworkpcversion.utils.Constants
@@ -54,6 +56,7 @@ class MyAdapter (private val reviewList: MutableList<Review>) : RecyclerView.Ada
             intent.putExtra(Constants.REVIEW_REVIEWTXT, review.reviewText)
             intent.putExtra(Constants.REVIEW_USER_ID, review.userId)
             intent.putExtra(Constants.REVIEW_IMAGE, review.image)
+            intent.putExtra(Constants.REVIEW_ID, review.id)
             v.context.startActivity(intent)
         }
     }

@@ -1,11 +1,10 @@
 package com.example.courseworkpcversion
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.courseworkpcversion.firestore.FirestoreClass
@@ -14,6 +13,7 @@ import com.example.courseworkpcversion.utils.GlideLoader
 import com.google.android.material.snackbar.Snackbar
 
 import android.view.View.OnTouchListener
+import android.widget.*
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -26,12 +26,9 @@ class SelectReviewActivity: AppCompatActivity() {
         var restaurantNameTextView = findViewById<TextView>(R.id.restaurantName)
         var ratingbarView = findViewById<RatingBar>(R.id.ratingbar)
         var imageView = findViewById<ImageView>(R.id.reviewImage)
-        var reviewTextView = findViewById<TextView>(R.id.reviewText)
+        var reviewTextView = findViewById<EditText>(R.id.reviewText)
         var usernameView = findViewById<TextView>(R.id.username)
 
-        //stops the reviewbar from being edited
-        ratingbarView.setOnTouchListener(OnTouchListener { v, event -> true })
-        ratingbarView.isFocusable = false
 
         //sets all of the data to the review data
         val restaurantNameText = intent.getSerializableExtra(Constants.REVIEW_NAME)
@@ -45,7 +42,7 @@ class SelectReviewActivity: AppCompatActivity() {
         GlideLoader(this@SelectReviewActivity).loadReviewPicture(uriImage, imageView)
 
         val reviewText = intent.getSerializableExtra(Constants.REVIEW_REVIEWTXT)
-        reviewTextView.text = reviewText.toString()
+        reviewTextView.setText(reviewText.toString())
 
         var userID = intent.getSerializableExtra(Constants.REVIEW_USER_ID)
 
