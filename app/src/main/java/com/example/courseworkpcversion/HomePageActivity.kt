@@ -146,8 +146,6 @@ class HomePageActivity : AppCompatActivity() {
         //sets up the profile pic of the user
         var uriImage: Uri = Uri.parse(image)
         val profilePicIcon = findViewById<ImageView>(R.id.userIcon)
-        /*var lemon = findViewById<TextView>(R.id.lemon)
-        lemon.text = uriImage.toString()*/
 
         GlideLoader(this@HomePageActivity).loadUserPicture(uriImage, profilePicIcon)
     }

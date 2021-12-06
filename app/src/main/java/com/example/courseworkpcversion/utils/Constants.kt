@@ -23,6 +23,10 @@ object Constants {
     const val USER_PREFERENCES: String = "UserPrefs"
     const val USER_ID: String = "userId"
     const val RESTAURANT_NAME: String = "restaurantName"
+    const val RESTAURANT_RATING: String = "restaurantRating"
+    const val RESTAURANT_REVIEWTXT :String = "restaurantReviewText"
+    const val RESTUARANT_USER_ID :String = "restaurantUserId"
+    const val RESTAURANT_IMAGE :String = "restaurantImage"
     const val USER_PROFILE_IMAGE: String = "User_Profile_Image"
     const val REVIEW_IMAGE: String = "Review_Image"
     const val PICK_IMAGE_REQUEST_CODE = 1

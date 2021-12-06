@@ -9,6 +9,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.courseworkpcversion.models.Review
+import com.example.courseworkpcversion.utils.Constants
 
 class MyAdapter (private val reviewList: MutableList<Review>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
@@ -45,8 +46,14 @@ class MyAdapter (private val reviewList: MutableList<Review>) : RecyclerView.Ada
         holder.restaurantNameTxt.text = review.restaurantName
         holder.reviewBar.rating = review.rating
 
+        //sends the extra data to the SelectReviewActivity
         holder.itemView.setOnClickListener { v ->
             val intent = Intent(v.context, SelectReviewActivity::class.java)
+            intent.putExtra(Constants.RESTAURANT_NAME, review.restaurantName)
+            intent.putExtra(Constants.RESTAURANT_RATING, review.rating)
+            intent.putExtra(Constants.RESTAURANT_REVIEWTXT, review.reviewText)
+            intent.putExtra(Constants.RESTUARANT_USER_ID, review.userId)
+            intent.putExtra(Constants.RESTAURANT_IMAGE, review.image)
             v.context.startActivity(intent)
         }
     }
@@ -68,7 +75,7 @@ class MyAdapter (private val reviewList: MutableList<Review>) : RecyclerView.Ada
         var imgView = itemView.findViewById<View>(R.id.icon) as ImageView
         var txtMsg = itemView.findViewById<View>(R.id.reviewTextRecycler) as TextView
         val reviewBar = itemView.findViewById<View>(R.id.ratingbar) as RatingBar
-        var restaurantNameTxt = itemView.findViewById<View>(R.id.RestaurantName) as TextView
+        var restaurantNameTxt = itemView.findViewById<View>(R.id.restaurantName) as TextView
 
         init {
             itemView.setOnClickListener(this)

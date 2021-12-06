@@ -1,4 +1,6 @@
 package com.example.courseworkpcversion.models
 
+import java.io.Serializable
+
 data class Review(val id: String = "", val restaurantName: String = "", val rating: Float = 0F,
-             val reviewText: String = "", val userId: String = "", val image: String = "")
+             val reviewText: String = "", val userId: String = "", val image: String = ""): Serializable

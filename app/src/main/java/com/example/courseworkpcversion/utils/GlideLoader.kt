@@ -17,4 +17,12 @@ class GlideLoader(val context: Context) {
             e.printStackTrace()
         }
     }
+    fun loadReviewPicture(imageUri: Uri, imageView: ImageView) {
+        try {
+            Glide.with(context).load(imageUri).centerCrop()
+                .placeholder(R.drawable.empty_image).into(imageView)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
 }
