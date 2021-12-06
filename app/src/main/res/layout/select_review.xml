@@ -9,10 +9,20 @@
     tools:context=".SelectReviewActivity">
 
     <com.example.courseworkpcversion.utils.CustomTextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/username"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/restaurantName"
+        app:layout_constraintTop_toTopOf="parent"></com.example.courseworkpcversion.utils.CustomTextView>
+
+    <com.example.courseworkpcversion.utils.CustomTextView
         android:id="@+id/restaurantName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Restaurant"
+        android:text="@string/restaurant"
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></com.example.courseworkpcversion.utils.CustomTextView>
@@ -31,11 +41,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:hint="Write review:"
+        android:hint="@string/writeReview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingbar"
-        android:maxLength="280">
+        android:maxLength="280"
+        android:textSize="30dp">
     </com.example.courseworkpcversion.utils.CustomTextView>
 
     <ImageView
@@ -50,5 +61,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reviewText"
         app:layout_constraintVertical_bias="0.223"></ImageView>
+
+    <Button
+        android:id="@+id/editByn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit"
+        android:onClick="edit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reviewImage"
+        app:layout_constraintVertical_bias="0.367" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,7 @@
         android:id="@+id/selectRestaurant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Restaurant:"
+        android:text="@string/selectRestaurant"
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></com.example.courseworkpcversion.utils.CustomTextView>
@@ -32,7 +32,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:isIndicator="true"
+        >
 
     </RatingBar>
     <com.google.android.material.textfield.TextInputEditText
@@ -40,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:hint="Write review:"
+        android:hint="@string/writeReview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingbar"
@@ -66,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="uploadImage"
-        android:text="SAVE REVIEW"
+        android:text="@string/saveReview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

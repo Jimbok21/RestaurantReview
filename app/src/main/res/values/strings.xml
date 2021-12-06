@@ -42,5 +42,10 @@
     <string name="SuccessImageUpload">Your profile picture has been successfully updated</string>
     <string name="title_activity_maps2">MapsActivity2</string>
 
+    <string name="saveReview">SAVE REVIEW</string>
+    <string name="writeReview">Write review:</string>
+    <string name="selectRestaurant">Select Restaurant:</string>
+    <string name="edit">EDIT REVIEW</string>
+    <string name="notAuthor">You must be signed in as the review author to edit a review</string>
 
 </resources>

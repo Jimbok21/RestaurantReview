@@ -22,17 +22,22 @@ object Constants {
     const val DEFAULT_PROFILE_PIC: String = "https://firebasestorage.googleapis.com/v0/b/restaurantreviewer-12cf2.appspot.com/o/default_profile_pic.jpg?alt=media&token=f92aa759-5e4c-4fe9-a282-4754bda5cb1e"
     const val USER_PREFERENCES: String = "UserPrefs"
     const val USER_ID: String = "userId"
+    const val USERNAME: String = "username"
     const val RESTAURANT_NAME: String = "restaurantName"
-    const val RESTAURANT_RATING: String = "restaurantRating"
-    const val RESTAURANT_REVIEWTXT :String = "restaurantReviewText"
-    const val RESTUARANT_USER_ID :String = "restaurantUserId"
-    const val RESTAURANT_IMAGE :String = "restaurantImage"
+    const val REVIEW_NAME: String = "reviewName"
+    const val REVIEW_RATING: String = "reviewRating"
+    const val REVIEW_REVIEWTXT :String = "reviewReviewText"
+    const val REVIEW_USER_ID :String = "reviewUserId"
+    const val REVIEW_IMAGE :String = "reviewImage"
     const val USER_PROFILE_IMAGE: String = "User_Profile_Image"
-    const val REVIEW_IMAGE: String = "Review_Image"
+    const val REVIEW_IMAGE_PREFIX: String = "Review_Image"
     const val PICK_IMAGE_REQUEST_CODE = 1
     const val READ_STORAGE_PERMISSION_CODE = 2
     const val IMAGE: String = "image"
     const val GUEST_ID: String = "wMZdjPOzVXdZmPAaJUneI0Tw5462"
+    const val BOUCHON_DE_ROSSI_ID: String = "MN6Ci7rFcz1iPHE5CrNZ"
+    const val NEW_ICHIBAN_ID: String = "VLi3kQm3G7xmmMKPqCAh"
+    const val NANDOS_ID: String = "X4udUSsBfCKYmx6AoydO"
 
 
     fun showImageChooser(activity: Activity) {

@@ -93,7 +93,7 @@ class FirestoreClass {
                 namePrefix = Constants.USER_PROFILE_IMAGE
             }
             is WriteReviewActivity -> {
-                namePrefix = Constants.REVIEW_IMAGE
+                namePrefix = Constants.REVIEW_IMAGE_PREFIX
             }
         }
         //adds the image to the storage with the correct prefix based on what the image is used for

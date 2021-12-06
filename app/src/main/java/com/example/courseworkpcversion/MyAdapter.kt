@@ -49,11 +49,11 @@ class MyAdapter (private val reviewList: MutableList<Review>) : RecyclerView.Ada
         //sends the extra data to the SelectReviewActivity
         holder.itemView.setOnClickListener { v ->
             val intent = Intent(v.context, SelectReviewActivity::class.java)
-            intent.putExtra(Constants.RESTAURANT_NAME, review.restaurantName)
-            intent.putExtra(Constants.RESTAURANT_RATING, review.rating)
-            intent.putExtra(Constants.RESTAURANT_REVIEWTXT, review.reviewText)
-            intent.putExtra(Constants.RESTUARANT_USER_ID, review.userId)
-            intent.putExtra(Constants.RESTAURANT_IMAGE, review.image)
+            intent.putExtra(Constants.REVIEW_NAME, review.restaurantName)
+            intent.putExtra(Constants.REVIEW_RATING, review.rating)
+            intent.putExtra(Constants.REVIEW_REVIEWTXT, review.reviewText)
+            intent.putExtra(Constants.REVIEW_USER_ID, review.userId)
+            intent.putExtra(Constants.REVIEW_IMAGE, review.image)
             v.context.startActivity(intent)
         }
     }
