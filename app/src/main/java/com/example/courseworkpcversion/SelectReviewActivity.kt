@@ -67,6 +67,8 @@ class SelectReviewActivity: AppCompatActivity() {
                 Snackbar.make(view, getString(R.string.notAuthor), Snackbar.LENGTH_LONG)
             snackNotAuthor.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarError))
             snackNotAuthor.show()
+        } else {
+            
         }
     }
 }

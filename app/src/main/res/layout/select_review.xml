@@ -9,14 +9,32 @@
     tools:context=".SelectReviewActivity">
 
     <com.example.courseworkpcversion.utils.CustomTextView
+        android:id="@+id/usernameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/usernameLabel"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restaurantName"></com.example.courseworkpcversion.utils.CustomTextView>
+
+    <com.example.courseworkpcversion.utils.CustomTextView
+        android:id="@+id/restaurantNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/restaurantLabel"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></com.example.courseworkpcversion.utils.CustomTextView>
+
+    <com.example.courseworkpcversion.utils.CustomTextView
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/username"
         android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/restaurantName"
-        app:layout_constraintTop_toTopOf="parent"></com.example.courseworkpcversion.utils.CustomTextView>
+        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toEndOf="@+id/usernameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/restaurantName"></com.example.courseworkpcversion.utils.CustomTextView>
 
     <com.example.courseworkpcversion.utils.CustomTextView
         android:id="@+id/restaurantName"
@@ -24,16 +42,16 @@
         android:layout_height="wrap_content"
         android:text="@string/restaurant"
         android:textSize="30dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toEndOf="@+id/restaurantNameLabel"
         app:layout_constraintTop_toTopOf="parent"></com.example.courseworkpcversion.utils.CustomTextView>
 
     <RatingBar
         android:id="@+id/ratingbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/username">
 
     </RatingBar>
     <com.example.courseworkpcversion.utils.CustomTextView

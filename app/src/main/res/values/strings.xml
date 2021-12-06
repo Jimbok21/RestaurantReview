@@ -28,6 +28,8 @@
     <string name="missingReviewRating">Please give the review a rating</string>
     <string name="missingReview">Please give the review a body</string>
     <string name="missingRestaurant">Please select a restaurant</string>
+    <string name="restaurantLabel">Restaurant: </string>
+    <string name="usernameLabel">Username: </string>
 
     <string name="registerSuccess">Account Registered Successfully</string>
     <string name="loggingIn">Logging in</string>
