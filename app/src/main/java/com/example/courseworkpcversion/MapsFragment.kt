@@ -3,7 +3,6 @@ package com.example.courseworkpcversion
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,29 +25,16 @@ class MapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-
 
 
         //gets the restaurant names
         val restaurantsList = RestaurantsActivity().readRestaurantNames()
-        //gets the restaurant locations
-        val restaurantLongLats = RestaurantsActivity().ReadRestaurantLongLat(0)
-        val bouchonDeRossi = LatLng(restaurantLongLats[1], restaurantLongLats[0])
-        val newIchiban = LatLng(restaurantLongLats[3], restaurantLongLats[2])
-        val nandos = LatLng(restaurantLongLats[5], restaurantLongLats[4])
+        //sets the restaurant locations
+        val bouchonDeRossi = LatLng(51.6189255, -3.9488759)
+        val newIchiban = LatLng(51.6239331, -3.9409216)
+        val nandos = LatLng(51.6191971, -3.9398177)
 
-        for (i in 0..5) {
-            Log.e("longlat list :", restaurantLongLats[i].toString())
-        }
-        /*Log.e("bouchonDeRossi Lat", restaurantLongLats[1].toString())
-        Log.e("bouchonDeRossi long", restaurantLongLats[0].toString())*/
 
-        //sets the map start point to swansea (nandos)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(nandos))
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15F))
 
 
         //adds the locations to the map with markers
@@ -56,6 +42,10 @@ class MapsFragment : Fragment() {
         for (i in restaurantsList.indices) {
             googleMap.addMarker(MarkerOptions().position(restaurantLocations[i]).title(restaurantsList[i]))
         }
+
+        //sets the map start point to swansea and zooms in
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(restaurantLocations[2], 15F))
+
     }
 
     override fun onCreateView(

@@ -134,32 +134,6 @@ class RestaurantsActivity: AppCompatActivity() {
         return restaurantsListTemp
     }
 
-    fun ReadRestaurantLongLat(int: Int): Array<Double> {
-        //gets the longitude and latitude of the restaurant.
-        //the first number is the first restaurant longitude, the second is the latitude
-        //the third number is the second restaurant longitude, the fourth is the latitude and so on
-        val restaurantsLongLat = arrayOf(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-        var i: Int = int
-        val db = FirebaseFirestore.getInstance()
-        db.collection(Constants.RESTAURANTS).get().addOnCompleteListener { task ->
-                for (document in task.result!!) {
-                    val longitude: Double = document.data[Constants.LONGITUDE] as Double
-                    val latitude: Double = document.data[Constants.LATITUDE] as Double
-                    restaurantsLongLat[i] = longitude
-                    restaurantsLongLat[i+1] = latitude
-                    i += 2
-            }
-            for(i in 0..5) {
-                Log.e("2 above return longitude/lat: ", restaurantsLongLat[i].toString())
-            }
-        }
-
-        if (i < 4) {
-            ReadRestaurantLongLat(i)
-        }
-        return restaurantsLongLat
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_layout, menu)
         return true

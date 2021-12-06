@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
-import android.view.View
 import com.example.courseworkpcversion.*
 import com.example.courseworkpcversion.models.User
 import com.example.courseworkpcversion.utils.Constants
@@ -53,13 +52,13 @@ class FirestoreClass {
                 //puts the data into a user
                 val user = document.toObject(User::class.java)!!
 
-                val sharedPrefrences = activity.getSharedPreferences(
+                val sharedPreferences = activity.getSharedPreferences(
                     Constants.USER_PREFERENCES,
                     Context.MODE_PRIVATE
                 )
 
                 //stores the data on the device
-                val editor: SharedPreferences.Editor = sharedPrefrences.edit()
+                val editor: SharedPreferences.Editor = sharedPreferences.edit()
                 editor.putString(
                     Constants.LOGGED_IN_USERNAME,
                     "${user.username}"
