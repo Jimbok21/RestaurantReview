@@ -30,6 +30,7 @@ class MyAdapter (private val reviewList: MutableList<Review>) : RecyclerView.Ada
      * Bind the data to the child views of the ViewHolder
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        //sets the review icon based on the type of restaurant
         val review: Review = reviewList[position]
         holder.txtMsg.text = review.reviewText
         var restaurant = review.restaurantName
@@ -42,7 +43,7 @@ class MyAdapter (private val reviewList: MutableList<Review>) : RecyclerView.Ada
             restaurantImage = R.drawable.nandos_image
         }
 
-
+        //sets the views to use the data
         holder.imgView.setImageResource(restaurantImage)
         holder.txtMsg.text = review.reviewText
         holder.restaurantNameTxt.text = review.restaurantName

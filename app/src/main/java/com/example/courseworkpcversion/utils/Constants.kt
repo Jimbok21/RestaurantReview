@@ -12,8 +12,6 @@ object Constants {
     const val REVIEWS: String = "reviews"
     const val RESTAURANTS: String = "restaurants"
     const val NAME: String = "name"
-    const val LONGITUDE: String = "longitude"
-    const val LATITUDE: String = "latitude"
     const val BOUCHON_DE_ROSSI: String = "Bouchon De Rossi"
     const val NEW_ICHIBAN: String = "New Ichiban"
     const val NANDOS: String = "Nandos"
@@ -52,7 +50,6 @@ object Constants {
     }
 
     fun getFileExtension(activity: Activity, uri: Uri?): String? {
-
         //maps the mime type to file extension with a mime map
         return MimeTypeMap.getSingleton()
             .getExtensionFromMimeType(activity.contentResolver.getType(uri!!))

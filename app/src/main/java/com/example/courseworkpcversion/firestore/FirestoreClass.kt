@@ -16,7 +16,7 @@ import com.google.firebase.storage.StorageReference
 
 class FirestoreClass {
 
-    val mFireStore = FirebaseFirestore.getInstance()
+    private val mFireStore = FirebaseFirestore.getInstance()
 
     fun registerUser(activity: UserRegistrationActivity, userInfo: User) {
 
@@ -31,9 +31,11 @@ class FirestoreClass {
     }
 
     fun getCurrentUserID(): String {
+        //gets the current signed in user ID
         val currentUser = FirebaseAuth.getInstance().currentUser
 
 
+        //makes sure the currentUserID is never null and sets it correctly
         var currentUserID = ""
         if(currentUser != null) {
             currentUserID = currentUser.uid
@@ -71,6 +73,7 @@ class FirestoreClass {
                 )
                 editor.apply()
 
+                //calls a success function based on the activity that called this function
                 when (activity) {
                     is LoginActivity -> {
                         activity.userLoggedInSuccess(user)
@@ -125,6 +128,7 @@ class FirestoreClass {
     }
 
     fun updateProfilePic(imageURL: String) {
+        //updates the profile pic field in the database
         val userRef = mFireStore.collection(Constants.USERS).document(getCurrentUserID())
         userRef.update(Constants.IMAGE, imageURL).addOnSuccessListener {
             Log.d("Update Profile Pic", "pfp successfully updated")

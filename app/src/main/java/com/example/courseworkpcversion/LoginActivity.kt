@@ -40,6 +40,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun userLoggedInSuccess(user: User) {
+        //takes the user to the homepage
         Log.i("Username: ", user.username)
         Log.i("Email: ", user.email)
         Log.i("ProfilePic: ", user.image)
@@ -48,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun loginGuest(view: View) {
+        //logs in the user with a guest account so they cannot write reviews or update profile pic
         FirebaseAuth.getInstance().signInWithEmailAndPassword("guest@guests.com", "guest123")
             .addOnCompleteListener() { task ->
                 val snackSuccessGuestLogin =
@@ -56,6 +58,7 @@ class LoginActivity : AppCompatActivity() {
                 FirestoreClass().getUserDetails(this@LoginActivity)
             }
     }
+
     fun login(view: View) {
         //this gets the data that the user inputted and removes spaces
         val email = findViewById<EditText>(R.id.emailText)

@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatButton
 
 class CustomButton(context: Context, attrs: AttributeSet):AppCompatButton(context, attrs) {
 
+    //a custom button for the login page with a custom font
     init {
         applyFont()
     }

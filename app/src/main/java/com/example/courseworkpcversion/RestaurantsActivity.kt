@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 
 class RestaurantsActivity: AppCompatActivity() {
+    //initializes the variables
     private var restaurant: String = ""
     private lateinit var recyclerView: RecyclerView
     private lateinit var reviewArrayList : ArrayList<Review>
@@ -30,6 +31,8 @@ class RestaurantsActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.restaurants)
+
+        //creates the spinner
         val spinner = findViewById<Spinner>(R.id.dropdownSpinner)
 
         val restaurantsList = readRestaurantNames()
@@ -38,7 +41,7 @@ class RestaurantsActivity: AppCompatActivity() {
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, restaurantsList)
 
         spinner.adapter = arrayAdapter
-
+        //gets the reviews based on the restaurant selected
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -46,6 +49,7 @@ class RestaurantsActivity: AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
+                //updates the recyclerView
                 restaurant = restaurantsList[position]
                 eventChangeListener()
                 reviewArrayList.clear()
@@ -117,6 +121,7 @@ class RestaurantsActivity: AppCompatActivity() {
     }
 
     fun readRestaurantNames(): Array<String> {
+        //gets the names of the restaurants
         val restaurantsListTemp = arrayOf(Constants.BOUCHON_DE_ROSSI, Constants.NEW_ICHIBAN, Constants.NANDOS)
         var i: Int = 0
         val db = FirebaseFirestore.getInstance()
@@ -135,6 +140,7 @@ class RestaurantsActivity: AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //inflates the toolbar
         menuInflater.inflate(R.menu.toolbar_layout, menu)
         return true
     }

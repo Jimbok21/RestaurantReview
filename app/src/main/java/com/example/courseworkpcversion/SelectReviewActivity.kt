@@ -23,6 +23,7 @@ class SelectReviewActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.select_review)
 
+        //initializing the views
         var restaurantNameTextView = findViewById<TextView>(R.id.restaurantName)
         var ratingbarView = findViewById<RatingBar>(R.id.ratingbar)
         var imageView = findViewById<ImageView>(R.id.reviewImage)
@@ -30,7 +31,7 @@ class SelectReviewActivity: AppCompatActivity() {
         var usernameView = findViewById<TextView>(R.id.username)
 
 
-        //sets all of the data to the review data
+        //sets all of the data for the review
         val restaurantNameText = intent.getSerializableExtra(Constants.REVIEW_NAME)
         restaurantNameTextView.text = restaurantNameText.toString()
 
@@ -46,6 +47,7 @@ class SelectReviewActivity: AppCompatActivity() {
 
         var userID = intent.getSerializableExtra(Constants.REVIEW_USER_ID)
 
+        //gets the username
         val db = FirebaseFirestore.getInstance()
         val docRef = db.collection(Constants.USERS).document(userID.toString())
         docRef.get()
@@ -58,12 +60,15 @@ class SelectReviewActivity: AppCompatActivity() {
     }
 
     fun edit(view: View) {
+        //stops the user from editing if they are logged in as a guest
         val userID = intent.getSerializableExtra(Constants.REVIEW_USER_ID)
         if (userID != FirestoreClass().getCurrentUserID()) {
             val snackNotAuthor =
                 Snackbar.make(view, getString(R.string.notAuthor), Snackbar.LENGTH_LONG)
             snackNotAuthor.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarError))
             snackNotAuthor.show()
+        } else {
+            
         }
     }
 }

@@ -42,6 +42,7 @@ class HomePageActivity : AppCompatActivity() {
     //the image on the cloud storage
     private var mUserProfileImageURL: String = ""
 
+    //initialize the lateinit variables
     private lateinit var recyclerView: RecyclerView
     private lateinit var reviewArrayList : ArrayList<Review>
     private lateinit var myAdapter: MyAdapter
@@ -76,7 +77,7 @@ class HomePageActivity : AppCompatActivity() {
             Constants.DEFAULT_PROFILE_PIC
         )!!
 
-        //the program will crash if the user has not set an image without this if statement
+        //sets the profile pic to a default one if the user has not set one already
         if(profilePic == "") {
             profilePic = Constants.DEFAULT_PROFILE_PIC
         }
@@ -105,7 +106,7 @@ class HomePageActivity : AppCompatActivity() {
             }
             true
         }
-
+        //loads the profile picture again
         updateProfilePicture(profilePic)
 
     }
@@ -135,6 +136,7 @@ class HomePageActivity : AppCompatActivity() {
     }
 
     fun makeNewReview(view: View) {
+        //stops the user from going to the WriteReviewActivity if they are not signed in
         if(FirestoreClass().getCurrentUserID() == Constants.GUEST_ID) {
             guestError(view)
         } else {
@@ -163,13 +165,14 @@ class HomePageActivity : AppCompatActivity() {
         snackGuestError.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarError))
         snackGuestError.show()
     }
+
     fun pickProfilePic(view: View) {
         //disables this feature if a guest is logged in
         if(FirestoreClass().getCurrentUserID() == Constants.GUEST_ID) {
             guestError(view)
         } else {
 
-            ////checks if storage permission has been granted to access image files on the phone
+            //checks if storage permission has been granted to access image files on the phone
             //will ask you for permission if it does not already have it
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED
@@ -275,6 +278,7 @@ class HomePageActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        //sets up the menuItem
         val myView = findViewById<View>(R.id.toolbar)
         when (item.itemId) {
             R.id.search -> {
@@ -296,6 +300,7 @@ class HomePageActivity : AppCompatActivity() {
     }
 
     fun refresh(user: User) {
+        //called when getUserDetails is used so it updates the values and profile pic
         Log.i("Username: ", user.username)
         Log.i("Email: ", user.email)
         Log.i("image", user.image)

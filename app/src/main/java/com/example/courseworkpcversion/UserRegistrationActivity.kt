@@ -38,7 +38,7 @@ class UserRegistrationActivity : AppCompatActivity() {
         val emailTxt: String = email.text.toString().trim { it <= ' ' }
         val passwordTxt: String = password.text.toString().trim { it <= ' ' }
         val usernameTxt: String = username.text.toString().trim { it <= ' ' }
-        //creates the snackbars and assignes them colours
+        //creates the snackbars and assigns them colours
         val snackEmptyPassword =
             Snackbar.make(view, getString(R.string.missingPassword), Snackbar.LENGTH_LONG)
         snackEmptyPassword.view.setBackgroundColor(ContextCompat.getColor(this, R.color.ColourSnackbarError))
@@ -102,6 +102,7 @@ class UserRegistrationActivity : AppCompatActivity() {
     }
 
     fun userRegisterSuccess(user: User) {
+        //takes the user straight to the home page and automatically logs them in with their new account
         Log.i("Username: ", user.username)
         Log.i("Email: ", user.email)
         startActivity(Intent(this@UserRegistrationActivity, HomePageActivity::class.java))

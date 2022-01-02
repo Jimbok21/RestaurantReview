@@ -27,6 +27,7 @@ class MapsActivity: AppCompatActivity() {
         currentActivity.performClick()
 
 
+        //sets up bottom navigation bar
         bottomNav.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.home -> {
@@ -45,6 +46,7 @@ class MapsActivity: AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //inflates the toolbar
         menuInflater.inflate(R.menu.toolbar_layout, menu)
         return true
     }
